@@ -1,0 +1,11 @@
+com\fssa\librarymanagement_app\librarian\UserListServlet.class
+com\fssa\librarymanagement_app\user\BookDetailsServlet.class
+com\fssa\librarymanagement_app\user\BorrowBookServlet.class
+com\fssa\librarymanagement_app\user\LoginServlet.class
+com\fssa\librarymanagement_app\user\LogoutServlet.class
+com\fssa\librarymanagement_app\user\BookListServlet.class
+com\fssa\librarymanagement_app\user\BorrowHistoryServlet.class
+com\fssa\librarymanagement_app\user\DeleteUserServlet.class
+com\fssa\librarymanagement_app\user\UpdateUserServlet.class
+com\fssa\librarymanagement_app\user\RegisterServlet.class
+com\fssa\librarymanagement_app\user\UserProfileServlet.class
