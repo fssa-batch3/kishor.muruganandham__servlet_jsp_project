@@ -40,15 +40,12 @@ public class RegisterServlet extends HttpServlet {
         try {
             userService.registerUser(user);
             // Forward to login.jsp with a success message
-            request.setAttribute("success", "Registration was successful.");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
-            dispatcher.forward(request, response);
-
+            response.sendRedirect(request.getContextPath() + "/login.jsp?successMessage=Registration was successful");
         } catch (ServiceException e) {
             e.printStackTrace();
             // Forward to index.jsp with an error message
             request.setAttribute("errorMessage", e.getMessage());
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/error.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/register.jsp");
             dispatcher.forward(request, response);
         }
     }

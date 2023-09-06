@@ -5,13 +5,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Login Page</title>
+<title>Reset Password</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
 	rel="stylesheet"
 	integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
 	crossorigin="anonymous">
 <style>
+/* Your CSS styles for the Forgot Password Page go here */
 .form {
 	display: flex;
 	flex-direction: column;
@@ -64,28 +65,6 @@
 	border: 1.5px solid #2d79f3;
 }
 
-.flex-row {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	gap: 10px;
-	justify-content: space-between;
-}
-
-.flex-row>div>label {
-	font-size: 14px;
-	color: black;
-	font-weight: 400;
-}
-
-.span {
-	font-size: 14px;
-	margin-left: 5px;
-	color: #2d79f3;
-	font-weight: 500;
-	cursor: pointer;
-}
-
 .button-submit {
 	margin: 20px 0 10px 0;
 	background-color: #151717;
@@ -119,38 +98,23 @@ h1 {
 </style>
 </head>
 <body>
-
-
-
 	<div class="container mt-5">
-		<h1>Login</h1>
-		<form action="login" method="post" class="form">
-			<c:if test="${not empty param.successMessage}">
-
-				<div class="alert alert-success alert-dismissible fade show"
-					role="alert">
-					${param.successMessage}
-					<button type="button" class="btn-close" data-bs-dismiss="alert"
-						aria-label="Close"></button>
-				</div>
-				<%
-				session.removeAttribute("successMessage");
-				%>
-			</c:if>
-			<c:if test="${not empty requestScope.errorMessage}">
-				<div class="alert alert-danger alert-dismissible fade show"
-					role="alert">
-					${requestScope.errorMessage}
-					<button type="button" class="btn-close" data-bs-dismiss="alert"
-						aria-label="Close"></button>
-				</div>
-				<%
-				request.removeAttribute("errorMessage");
-				%>
-			</c:if>
-
+		<h1>Reset Password</h1>
+		<c:if test="${not empty requestScope.errorMessage}">
+			<div class="alert alert-danger alert-dismissible fade show"
+				role="alert">
+				${requestScope.errorMessage}
+				<button type="button" class="btn-close" data-bs-dismiss="alert"
+					aria-label="Close"></button>
+			</div>
+			<%
+			session.removeAttribute("errorMessage");
+			%>
+		</c:if>
+		<form action="forgot-password" method="post" class="form">
+			<!-- Email Field -->
 			<div class="flex-column">
-				<label for="username">Email:</label>
+				<label for="email">Email:</label>
 			</div>
 			<div class="inputForm">
 				<svg xmlns="http://www.w3.org/2000/svg" width="20"
@@ -160,12 +124,13 @@ h1 {
 						d="m30.853 13.87a15 15 0 0 0 -29.729 4.082 15.1 15.1 0 0 0 12.876 12.918 15.6 15.6 0 0 0 2.016.13 14.85 14.85 0 0 0 7.715-2.145 1 1 0 1 0 -1.031-1.711 13.007 13.007 0 1 1 5.458-6.529 2.149 2.149 0 0 1 -4.158-.759v-10.856a1 1 0 0 0 -2 0v1.726a8 8 0 1 0 .2 10.325 4.135 4.135 0 0 0 7.83.274 15.2 15.2 0 0 0 .823-7.455zm-14.853 8.13a6 6 0 1 1 6-6 6.006 6.006 0 0 1 -6 6z"></path>
                     </g>
                 </svg>
-				<input placeholder="Enter your Email" class="input" type="text"
-					id="username" name="username" required autofocus>
+				<input placeholder="Enter your Email" class="input" type="email"
+					id="email" name="email" required autofocus>
 			</div>
 
+			<!-- Old Password Field -->
 			<div class="flex-column">
-				<label for="password">Password:</label>
+				<label for="oldPassword">Old Password:</label>
 			</div>
 			<div class="inputForm">
 				<svg xmlns="http://www.w3.org/2000/svg" width="20"
@@ -174,36 +139,37 @@ h1 {
 						d="m336 512h-288c-26.453125 0-48-21.523438-48-48v-224c0-26.476562 21.546875-48 48-48h288c26.453125 0 48 21.523438 48 48v224c0 26.476562-21.546875 48-48 48zm-288-288c-8.8125 0-16 7.167969-16 16v224c0 8.832031 7.1875 16 16 16h288c8.8125 0 16-7.167969 16-16v-224c0-8.832031-7.1875-16-16-16zm0 0"></path>
 					<path
 						d="m304 224c-8.832031 0-16-7.167969-16-16v-80c0-52.929688-43.070312-96-96-96s-96 43.070312-96 96v80c0 8.832031-7.167969 16-16 16s-16-7.167969-16-16v-80c0-70.59375 57.40625-128 128-128s128 57.40625 128 128v80c0 8.832031-7.167969 16-16 16zm0 0"></path></svg>
-				<input placeholder="Enter your Password" class="input"
-					type="password" id="password" name="password" required>
+				<input placeholder="Enter your Old Password" class="input"
+					type="password" id="oldPassword" name="oldPassword" required>
 			</div>
 
-			<div class="flex-row">
-				<div>
-					<input type="checkbox" name="remember"> <label>Remember
-						me</label>
-				</div>
-				<span class="span"><a href="reset-password.jsp">Reset
-						password?</a></span>
+			<!-- New Password Field -->
+			<div class="flex-column">
+				<label for="newPassword">New Password:</label>
+			</div>
+			<div class="inputForm">
+				<svg xmlns="http://www.w3.org/2000/svg" width="20"
+					viewBox="-64 0 512 512" height="20">
+					<path
+						d="m336 512h-288c-26.453125 0-48-21.523438-48-48v-224c0-26.476562 21.546875-48 48-48h288c26.453125 0 48 21.523438 48 48v224c0 26.476562-21.546875 48-48 48zm-288-288c-8.8125 0-16 7.167969-16 16v224c0 8.832031 7.1875 16 16 16h288c8.8125 0 16-7.167969 16-16v-224c0-8.832031-7.1875-16-16-16zm0 0"></path>
+					<path
+						d="m304 224c-8.832031 0-16-7.167969-16-16v-80c0-52.929688-43.070312-96-96-96s-96 43.070312-96 96v80c0 8.832031-7.167969 16-16 16s-16-7.167969-16-16v-80c0-70.59375 57.40625-128 128-128s128 57.40625 128 128v80c0 8.832031-7.167969 16-16 16zm0 0"></path></svg>
+				<input placeholder="Enter your New Password" class="input"
+					type="password" id="newPassword" name="newPassword" required>
 			</div>
 
-			<button class="button-submit" type="submit">Login</button>
+			<!-- Reset Password Button -->
+			<button class="button-submit" type="submit">Reset Password</button>
 			<p class="p">
-				Don't have an account? <a href="register.jsp" class="span">Sign
-					Up</a>
+				Don't want your password to be reset? <a href="login.jsp"
+					class="span">Log In</a>
 			</p>
-
 		</form>
 
-
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+			crossorigin="anonymous"></script>
 	</div>
-
-
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
-		crossorigin="anonymous"></script>
-
 </body>
-
 </html>
