@@ -20,8 +20,7 @@ public class LogoutServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         session.invalidate(); // Invalidate the session
-        request.setAttribute("errorMessage", "Logged Out Successfully");
-		request.getRequestDispatcher("/login.jsp").forward(request, response);
+        response.sendRedirect(request.getContextPath() + "/login.jsp?successMessage=Logged out successfully");
     }
 
 }

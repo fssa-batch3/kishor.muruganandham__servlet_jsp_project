@@ -20,7 +20,6 @@
 		<table class="table" >
 			<thead>
 				<tr>
-					<th>User</th>
 					<th>Book</th>
 					<th>Borrow Date</th>
 					<th>Return Date</th>
@@ -31,7 +30,6 @@
 			<tbody>
 				<c:forEach var="borrow" items="${borrowHistory}">
 					<tr>
-						<td>${borrow.user.name}</td>
 						<td>${borrow.book.title}</td>
 						<td>${borrow.borrowDate}</td>
 						<td>${borrow.returnDate}</td>

@@ -7,7 +7,7 @@
 </head>
 <body>
     <div class="container mt-5">
-        <h1>Welcome to My Website</h1>
+        <h1>Welcome to Library Management Website</h1>
         <p>Please choose an option:</p>
         <a href="login.jsp" class="btn btn-primary">Login</a>
         <a href="register.jsp" class="btn btn-secondary">Register</a>
