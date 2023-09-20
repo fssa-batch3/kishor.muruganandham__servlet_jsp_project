@@ -26,15 +26,12 @@ public class UpdateUserServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-
-        String name = request.getParameter("name");
-        String profileImage = request.getParameter("profileImage");
-        long mobileNo = Long.parseLong(request.getParameter("mobileNo"));
-        LocalDate dob = LocalDate.parse(request.getParameter("dob"));
-
+		String name = request.getParameter("name");
+		String profileImage = request.getParameter("profileImage");
+		long mobileNo = Long.parseLong(request.getParameter("mobileNo"));
+		LocalDate dob = LocalDate.parse(request.getParameter("dob"));
 
 		HttpSession session = request.getSession();
-
 
 		String email = (String) session.getAttribute("user");
 

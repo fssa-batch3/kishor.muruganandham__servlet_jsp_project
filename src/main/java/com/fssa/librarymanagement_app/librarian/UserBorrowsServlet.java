@@ -16,7 +16,7 @@ import com.fssa.librarymanagement.service.BorrowService;
 /**
  * Servlet implementation class UserBorrowsServlet
  */
-@WebServlet("/librarian/user-borrows")
+@WebServlet("/librarian/borrow-list/user")
 public class UserBorrowsServlet extends HttpServlet {
 	/**
 	 *
@@ -36,7 +36,7 @@ public class UserBorrowsServlet extends HttpServlet {
 				borrowList = borrowService.getBorrowsByUser(userId);
 				request.setAttribute("borrowList", borrowList);
 				System.out.print(borrowList);
-				request.getRequestDispatcher("/librarian/user-borrows.jsp").forward(request, response);
+				request.getRequestDispatcher("/pages/librarian/user-borrows.jsp").forward(request, response);
 			} catch (ServiceException e) {
 				e.printStackTrace();
 				request.setAttribute("errorMessage", e.getMessage());

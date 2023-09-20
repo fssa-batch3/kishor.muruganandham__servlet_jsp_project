@@ -1,0 +1,116 @@
+@import "../css/variables.css";
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: url(../images/Body-bg.svg)center center/cover no-repeat;
+    overflow-x: hidden
+}
+
+.container {
+    text-align: center;
+    vertical-align: middle;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+    padding: 40px 0;
+}
+
+.tab-content {
+    display: none;
+    background-color: var(--body-white);
+    padding: 15px 30px;
+    margin: 20px;
+    border-radius: 25px;
+    box-shadow: 0 0 10px 1px rgba(0,0,0,.4);
+    height: fit-content;
+    overflow-y: auto;
+    max-width: 750px;
+    width: fit-content;
+}
+
+#sign-in {
+    height: 580px;
+    width: 100%;
+    max-width: 380px;
+    display: block
+}
+.input-row{
+    min-width: 320px;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: space-evenly; 
+}
+.input-row .input-group{
+    flex: 1;
+    min-width: 320px;
+    max-width: 350px;
+}
+.input-group.sm{
+    max-width: none;
+}
+.forget-password {
+    text-decoration: underline;
+    color: var(--primary-color)
+}
+
+.pass-visible::before {
+    position: absolute;
+    display: flex;
+    font-size: 24px;
+    right: 15px;
+    top: 15px;
+    color: var(--font-purple);
+    cursor: pointer
+}
+
+.tab-group {
+    position: relative;
+    max-height: 80px;
+    margin: 0 20px;
+    padding: 5px;
+    background-color: var(--body-white);
+    border-radius: 25px;
+    display: flex;
+    justify-content: space-between;
+    max-width: 380px;
+    width: 100%;
+    box-shadow: 0 0 10px 1px rgba(0,0,0,.4)
+}
+
+.tab-group button {
+    width: 100%;
+    padding: 20px 0;
+    background-color: transparent;
+    border: 0;
+    outline: 0;
+    font-size: var(--h4-fs);
+    color: var(--font-black);
+    cursor: pointer;
+    transition: color .2s linear
+}
+
+.tab-group button.active {
+    color: var(--font-white);
+    background-color: var(--primary-color);
+    border-radius: 20px
+}
+
+@media only screen and (max-width:764px) {
+    .container{
+        overflow-x: hidden;
+    }
+    .input-group.sm{
+        max-width: 350px;
+        margin: auto;
+    }
+    .tab-content {
+        max-width: 500px;
+    }
+}
+

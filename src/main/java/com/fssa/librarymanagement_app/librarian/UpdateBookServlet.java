@@ -12,12 +12,29 @@ import com.fssa.librarymanagement.exceptions.ServiceException;
 import com.fssa.librarymanagement.model.Book;
 import com.fssa.librarymanagement.service.BookService;
 
-@WebServlet("/librarian/update-book")
+@WebServlet("/librarian/book/update")
 public class UpdateBookServlet extends HttpServlet {
 	/**
 	 *
 	 */
 	private static final long serialVersionUID = 1L;
+
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		int bookId = Integer.parseInt(request.getParameter("bookId"));
+
+		BookService bookService = new BookService();
+		Book bookDetails;
+		try {
+			bookDetails = bookService.getBookById(bookId);
+			System.out.println(bookDetails);
+			request.setAttribute("book", bookDetails);
+			request.getRequestDispatcher("/pages/librarian/update-book.jsp").forward(request, response);
+		} catch (ServiceException e) {
+			e.printStackTrace();
+		}
+	}
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -32,22 +49,20 @@ public class UpdateBookServlet extends HttpServlet {
 		String description = request.getParameter("description");
 		int totalCopies = Integer.parseInt(request.getParameter("totalCopies"));
 		int availableCopies = Integer.parseInt(request.getParameter("availableCopies"));
-		int loanedCopies = Integer.parseInt(request.getParameter("loanedCopies"));
 		String coverImage = request.getParameter("coverImage");
 
 		BookService bookService = new BookService();
 		Book book = new Book();
 		book.setBookId(bookId);
 		book.setTitle(title);
-        book.setAuthor(author);
-        book.setPublisher(publisher);
-        book.setGenre(genre);
-        book.setLanguage(language);
-        book.setDescription(description);
-        book.setTotalCopies(totalCopies);
-        book.setCoverImage(coverImage);
-        book.setAvailableCopies(availableCopies);
-        book.setLoanedCopies(loanedCopies);
+		book.setAuthor(author);
+		book.setPublisher(publisher);
+		book.setGenre(genre);
+		book.setLanguage(language);
+		book.setDescription(description);
+		book.setTotalCopies(totalCopies);
+		book.setCoverImage(coverImage);
+		book.setAvailableCopies(availableCopies);
 		try {
 			bookService.updateBook(book);
 

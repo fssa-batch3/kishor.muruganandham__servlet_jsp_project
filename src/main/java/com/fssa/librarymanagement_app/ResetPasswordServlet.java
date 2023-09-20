@@ -30,7 +30,8 @@ public class ResetPasswordServlet extends HttpServlet {
 		try {
 			userService.updatePassword(userEmail, oldPassword, newPassword);
 			// Forward to login.jsp with a success message
-            response.sendRedirect(request.getContextPath() + "/login.jsp?successMessage=Password updated Successfully!");
+			response.sendRedirect(
+					request.getContextPath() + "/login.jsp?successMessage=Password updated Successfully!");
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			request.setAttribute("errorMessage", e.getMessage());

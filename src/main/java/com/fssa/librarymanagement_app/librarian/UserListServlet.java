@@ -31,7 +31,7 @@ public class UserListServlet extends HttpServlet {
 
 			System.out.println(userList);
 			request.setAttribute("userList", userList);
-			request.getRequestDispatcher("/librarian/user-list.jsp").forward(request, response);
+			request.getRequestDispatcher("/pages/librarian/list-user.jsp").forward(request, response);
 		} catch (ServiceException e) {
 			e.printStackTrace();
 		}

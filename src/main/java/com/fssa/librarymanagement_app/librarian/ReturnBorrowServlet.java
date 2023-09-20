@@ -16,7 +16,7 @@ import com.fssa.librarymanagement.service.BorrowService;
 /**
  * Servlet implementation class ReturnBorrowServlet
  */
-@WebServlet("/librarian/return-borrow")
+@WebServlet("/librarian/borrow-list/return")
 public class ReturnBorrowServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

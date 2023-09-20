@@ -31,8 +31,8 @@ public class DeleteUserServlet extends HttpServlet {
 
 		try {
 			boolean result = userService.deleteUser(userEmail);
-			if(result) {
-		        session.invalidate();
+			if (result) {
+				session.invalidate();
 				request.setAttribute("errorMessage", "Account Deleted Successfully");
 				request.getRequestDispatcher("/login.jsp").forward(request, response);
 			} else {

@@ -20,28 +20,35 @@ public class CreateBookServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		request.getRequestDispatcher("/pages/librarian/create-book.jsp").forward(request, response);
+
+	}
+
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// Retrieve form data from the request
-        String title = request.getParameter("title");
-        String author = request.getParameter("author");
-        String publisher = request.getParameter("publisher");
-        String genre = request.getParameter("genre");
-        String language = request.getParameter("language");
-        String description = request.getParameter("description");
-        int totalCopies = Integer.parseInt(request.getParameter("totalCopies"));
-        String coverImage = request.getParameter("coverImage");
+		String title = request.getParameter("title");
+		String author = request.getParameter("author");
+		String publisher = request.getParameter("publisher");
+		String genre = request.getParameter("genre");
+		String language = request.getParameter("language");
+		String description = request.getParameter("description");
+		int totalCopies = Integer.parseInt(request.getParameter("totalCopies"));
+		String coverImage = request.getParameter("coverImage");
 
-        BookService bookService = new BookService();
-        Book book = new Book();
-        book.setTitle(title);
-        book.setAuthor(author);
-        book.setPublisher(publisher);
-        book.setGenre(genre);
-        book.setLanguage(language);
-        book.setDescription(description);
-        book.setTotalCopies(totalCopies);
-        book.setCoverImage(coverImage);
+		BookService bookService = new BookService();
+		Book book = new Book();
+		book.setTitle(title);
+		book.setAuthor(author);
+		book.setPublisher(publisher);
+		book.setGenre(genre);
+		book.setLanguage(language);
+		book.setDescription(description);
+		book.setTotalCopies(totalCopies);
+		book.setCoverImage(coverImage);
 		try {
 			bookService.addBook(book);
 

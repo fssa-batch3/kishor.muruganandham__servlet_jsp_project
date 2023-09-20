@@ -20,6 +20,7 @@ public class BorrowListServlet extends HttpServlet {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -29,7 +30,7 @@ public class BorrowListServlet extends HttpServlet {
 			borrowList = borrowService.getAllBorrows();
 			request.setAttribute("borrowList", borrowList);
 			System.out.print(borrowList);
-			request.getRequestDispatcher("/librarian/borrow-list.jsp").forward(request, response);
+			request.getRequestDispatcher("/pages/librarian/list-borrow.jsp").forward(request, response);
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			request.setAttribute("errorMessage", e.getMessage());

@@ -27,7 +27,6 @@ public class BorrowHistoryServlet extends HttpServlet {
 
 		HttpSession session = request.getSession();
 
-
 		int userId = (int) session.getAttribute("userId");
 		BorrowService borrowService = new BorrowService();
 		List<Borrow> borrowList;
@@ -35,8 +34,8 @@ public class BorrowHistoryServlet extends HttpServlet {
 			borrowList = borrowService.getBorrowsByUser(userId);
 
 			System.out.println(borrowList);
-			request.setAttribute("borrowHistory", borrowList);
-			request.getRequestDispatcher("borrow-history.jsp").forward(request, response);
+			request.setAttribute("borrowList", borrowList);
+			request.getRequestDispatcher("/pages/user/borrow-history.jsp").forward(request, response);
 		} catch (ServiceException e) {
 
 			e.printStackTrace();

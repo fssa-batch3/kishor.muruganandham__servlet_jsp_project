@@ -23,12 +23,15 @@ public class BookListServlet extends HttpServlet {
 			throws ServletException, IOException {
 		BookService bookService = new BookService();
 		List<Book> bookList;
+		List<String> genreList;
 		try {
 			bookList = bookService.listAllBooks();
-
+			genreList = bookService.listAllGenres();
 			System.out.println(bookList);
+			System.out.println(genreList);
 			request.setAttribute("bookList", bookList);
-			request.getRequestDispatcher("book-list.jsp").forward(request, response);
+			request.setAttribute("genreList", genreList);
+			request.getRequestDispatcher("/pages/librarian/list-book.jsp").forward(request, response);
 		} catch (ServiceException e) {
 			e.printStackTrace();
 		}
