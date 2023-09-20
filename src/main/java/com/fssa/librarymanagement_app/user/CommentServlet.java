@@ -1,6 +1,7 @@
 package com.fssa.librarymanagement_app.user;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -48,14 +49,30 @@ public class CommentServlet extends HttpServlet {
 			throws ServletException, IOException {
 		int commentId = Integer.parseInt(request.getParameter("commentId"));
 		String updatedDescription = request.getParameter("description");
-
+		System.out.println(updatedDescription);
+		System.out.println(commentId);
+		Comment comment = new Comment();
+		comment.setEditedAt(LocalDateTime.now());
+		comment.setDescription(updatedDescription);
+		comment.setCommentId(commentId);
+		try {
+			commentService.updateComment(comment);
+		} catch (ServiceException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
 		int commentId = Integer.parseInt(request.getParameter("commentId"));
 
+		try {
+			commentService.deleteComment(commentId);
+		} catch (ServiceException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

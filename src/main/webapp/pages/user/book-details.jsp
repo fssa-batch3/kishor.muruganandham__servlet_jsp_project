@@ -189,7 +189,7 @@
 					<div class="comments-container">
 						<div class="book-detail-comments-wrap">
 							<c:forEach var="comment" items="${commentList}">
-								<div class="book-detail-comment">
+								<div class="book-detail-comment" id="comment-${comment.commentId}">
 									<div class="comment-header">
 										<div class="comment-profile">
 											<img src="${comment.user.profileImage}"
@@ -197,7 +197,7 @@
 											<p class="comment-username">${comment.user.name}<span
 													class="trusted">Trusted</span>
 											</p>
-											<p class="comment-time">${comment.created_at}</p>
+											<p class="comment-time">${comment.createdAt}</p>
 										</div>
 										<div class="comment-actions">
 											<span class="comment-like"> <i
@@ -205,8 +205,8 @@
 												<p class="comment-like-number">5</p>
 												<div class="tooltip" role="tooltip"
 													data-popper-placement="top">Like Members</div>
-											</span> <span class="bi bi-pencil-square">Edit</span> <span
-												class="bi bi-trash">Delete</span>
+											</span> <span class="bi bi-pencil-square" onclick="updateComment(${comment.commentId})">Edit</span> <span
+												class="bi bi-trash" onclick="deleteComment(${comment.commentId})">Delete</span>
 										</div>
 									</div>
 									<div class="comment-body">
@@ -215,7 +215,7 @@
 									</div>
 									<div class="comment-footer">
 										<div class="tooltip" role="tooltip"
-											data-popper-placement="top">Edited Time</div>
+											data-popper-placement="top">${comment.editedAt}</div>
 										<small class="comment-edited">${comment.edited ? '(edited)' : ''}</small>
 									</div>
 								</div>
@@ -318,6 +318,52 @@
 	    }
 	  }
 	setRatingValue(${rating});
+	
+	
+	function deleteComment(id) {
+	    console.log(id);
+	    const confirmed = confirm('Are you sure you want to delete this comment?');
+	    if (confirmed) {
+	      axios.delete("comment?commentId="+ id)
+	        .then(response => {
+	          alert('Comment deleted successfully');
+	          const commentElement = document.getElementById("comment-"+id);
+	          if (commentElement) {
+	            commentElement.parentElement.removeChild(commentElement);
+	          }
+	        })
+	        .catch(error => {
+	          console.error('Error deleting comment:', error);
+	        });
+	    }
+	  }
+	
+	function updateComment(id) {
+	    const updatedDescription = prompt('Enter the new description for the comment:');
+	    if (updatedDescription === null) {
+	      return; 
+	    }
+
+	    const updatedComment = {
+	      description: updatedDescription
+	    };
+
+	    axios.put("comment?commentId="+id, updatedComment)
+	      .then(response => {
+	        alert('Comment updated successfully');
+	        const commentElement = document.getElementById("comment-"+id);
+	        if (commentElement) {
+	          const descriptionElement = commentElement.querySelector('.comment-description');
+	          if (descriptionElement) {
+	            descriptionElement.innerText = updatedDescription;
+	          }
+	        }
+	      })
+	      .catch(error => {
+	        console.error('Error updating comment:', error);
+	      });
+	  }
+
 	</script>
 </body>
 </html>
