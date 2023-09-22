@@ -45,6 +45,7 @@ public class UpdateBookServlet extends HttpServlet {
 		String author = request.getParameter("author");
 		String publisher = request.getParameter("publisher");
 		String genre = request.getParameter("genre");
+		int pages = Integer.parseInt(request.getParameter("pages"));
 		String language = request.getParameter("language");
 		String description = request.getParameter("description");
 		int totalCopies = Integer.parseInt(request.getParameter("totalCopies"));
@@ -58,6 +59,7 @@ public class UpdateBookServlet extends HttpServlet {
 		book.setAuthor(author);
 		book.setPublisher(publisher);
 		book.setGenre(genre);
+		book.setPages(pages);
 		book.setLanguage(language);
 		book.setDescription(description);
 		book.setTotalCopies(totalCopies);

@@ -41,7 +41,7 @@
 					<div class="tooltip" role="tooltip" data-popper-placement="right">
 						Dashboard
 						<div class="arrow" data-popper-arrow></div>
-					</div> </a> <a href="./admin_library.html" class="nav-items"><i
+					</div> </a> <a href="./book-list" class="nav-items"><i
 					class="bi bi-building"></i>
 					<p>Library</p>
 					<div class="tooltip" role="tooltip" style="top: 195px"
@@ -55,7 +55,7 @@
 						data-popper-placement="right">
 						Borrow List
 						<div class="arrow" data-popper-arrow></div>
-					</div> </a> <a href="./admin_create-book.html" class="nav-items"><i
+					</div> </a> <a href="./create-book" class="nav-items"><i
 					class="bi bi-file-plus"></i>
 					<p>Create Book</p>
 					<div class="tooltip" role="tooltip" style="top: 315px"
@@ -88,7 +88,7 @@
 						style="bottom: 115px; top: unset" data-popper-placement="right">
 						Theme
 						<div class="arrow" data-popper-arrow></div>
-					</div> </a> <a href="../logout" class="nav-items" id="sign-out"><i
+					</div> </a> <a href="<%= request.getContextPath() %>/logout" class="nav-items" id="sign-out"><i
 					class="bi bi-box-arrow-left"></i>
 					<p>Log Out</p>
 					<div class="tooltip" role="tooltip"

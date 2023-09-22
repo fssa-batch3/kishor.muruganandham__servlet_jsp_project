@@ -124,7 +124,8 @@
 				</div>
 				<div class="button-grp">
 					<button class="book-edit submit" type="button">Edit Book</button>
-					<button class="book-delete submit" type="button">Delete
+					<button class="book-delete submit" type="button"
+						onclick="location.href = '../delete-book?bookId=${ book.bookId}';">Delete
 						Book</button>
 					<button class="book-save submit" type="submit"
 						style="display: none">Save Changes</button>
@@ -237,26 +238,20 @@
 	        closeOnSelect: false,
 	      },
 	      originalInputValueFormat: valuesArr => {
-	            // Convert the tags to a comma-separated string
 	            return valuesArr.map(item => item.value).join(', ');
 	        },
 	        callbacks: {
 	            add: () => {
-	                // Update the custom input value whenever a tag is added
 	                customInput.value = tagify.value.map(tag => tag.value).join(', ');
 	            },
 	            remove: () => {
-	                // Update the custom input value whenever a tag is removed
 	                customInput.value = tagify.value.map(tag => tag.value).join(', ');
 	            }
 	        }
 	    });
 	    tagify.whitelist = genres;
 	  });
-	//  imgEditBtn.addEventListener("click", showUploadWidget);
 	  
-	  
-	  // Add event listener to Cancel button to reload the page and revert any unsaved changes
 	  cancelBtn.addEventListener("click", function () {
 	    location.reload();
 	  });

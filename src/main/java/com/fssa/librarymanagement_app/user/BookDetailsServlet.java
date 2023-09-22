@@ -74,6 +74,8 @@ public class BookDetailsServlet extends HttpServlet {
 				request.getRequestDispatcher("/pages/user/book-details.jsp").forward(request, response);
 			} catch (ServiceException e) {
 				e.printStackTrace();
+				request.setAttribute("errorMessage", e.getMessage());
+				request.getRequestDispatcher("/error.jsp").forward(request, response);
 			}
 
 		} else {

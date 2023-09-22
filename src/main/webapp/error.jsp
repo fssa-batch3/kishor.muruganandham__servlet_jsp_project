@@ -13,7 +13,8 @@
             <h4 class="alert-heading">Error!</h4>
             <p>${errorMessage}</p>
             <hr>
-            <a href="/LibraryManagement-web/login" class="btn btn-primary mt-3">Go Back</a>
+            <a href="javascript:history.back()" class="btn btn-primary mt-3">Go Back</a>
+            <a href="<%= request.getContextPath() %>/home" class="btn btn-primary mt-3">Go Home</a>
         </div>
     </div>
 

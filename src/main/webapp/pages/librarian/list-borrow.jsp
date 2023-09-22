@@ -106,7 +106,7 @@
 						style="bottom: 115px; top: unset" data-popper-placement="right">
 						Theme
 						<div class="arrow" data-popper-arrow></div>
-					</div> </a> <a href="#" class="nav-items" id="sign-out"><i
+					</div> </a> <a href="<%= request.getContextPath() %>/logout" class="nav-items" id="sign-out"><i
 					class="bi bi-box-arrow-left"></i>
 					<p>Log Out</p>
 					<div class="tooltip" role="tooltip"

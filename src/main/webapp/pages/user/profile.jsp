@@ -48,7 +48,7 @@
 						data-popper-placement="right">
 						Library
 						<div class="arrow" data-popper-arrow></div>
-					</div> </a> <a href="./user/history.html" class="nav-items"><i
+					</div> </a> <a href="./borrow-history" class="nav-items"><i
 					class="bi bi-hourglass"></i>
 					<p>History</p>
 					<div class="tooltip" role="tooltip" style="top: 255px"
@@ -81,7 +81,7 @@
 						style="bottom: 115px; top: unset" data-popper-placement="right">
 						Theme
 						<div class="arrow" data-popper-arrow></div>
-					</div> </a> <a href="#" class="nav-items" id="sign-out"><i
+					</div> </a> <a href="<%= request.getContextPath() %>/logout" class="nav-items" id="sign-out"><i
 					class="bi bi-box-arrow-left"></i>
 					<p>Log Out</p>
 					<div class="tooltip" role="tooltip"
@@ -166,7 +166,7 @@
 				<div class="input-group"
 					style="display: flex; margin: auto; gap: 20px; max-width: 500px">
 					<button class="user-detail-edit submit" type="button">Edit</button>
-					<button class="user-detail-delete submit" type="button">Delete</button>
+					<button class="user-detail-delete submit" type="button" onclick="location.href = '../delete';">Delete</button>
 					<button class="user-detail-save submit" type="submit">Save
 						Changes</button>
 					<button class="user-detail-cancel submit">Cancel</button>
@@ -245,21 +245,6 @@
 	  location.reload();
 	});
 
-	deleteBtn.addEventListener("click", (e) => {
-	  e.preventDefault();
-	  const confirmValue = confirm("Are you sure you want to delete your account?");
-	  if (confirmValue === false) {
-	    return;
-	  }
-	  const promptValue = prompt(
-	    `This action cannot be undone. This will permanently delete the ${thisUser.username} account and remove all details associated with it. Please type your password to confirm.`
-	  );
-	  const isPasswordValid = comparePassword(promptValue, thisUser.password);
-	  if (!isPasswordValid) {
-	    alert("Please enter your password correctly");
-	    return;
-	  }
-	});
 
 	const modalCloseBtn = document.querySelector(".modal-close");
 	modalCloseBtn.addEventListener("click", closeBorrowModal);

@@ -39,13 +39,21 @@ public class RegisterServlet extends HttpServlet {
 
 		try {
 			userService.registerUser(user);
+			request.setAttribute("successMessage", "User Created Successfully");
 			// Forward to login.jsp with a success message
-			response.sendRedirect(request.getContextPath() + "/index");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/home");
+			dispatcher.forward(request, response);
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			// Forward to index.jsp with an error message
 			request.setAttribute("errorMessage", e.getMessage());
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/register.jsp");
+			request.setAttribute("signupName", name);
+			request.setAttribute("signupEmail", email);
+			request.setAttribute("signupMobileNo", mobileNo);
+			request.setAttribute("signupPassword", password);
+			request.setAttribute("signupGender", gender);
+			request.setAttribute("signupDob", dob);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/home");
 			dispatcher.forward(request, response);
 		}
 	}

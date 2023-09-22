@@ -1,4 +1,4 @@
-package com.fssa.librarymanagement_app.user;
+package com.fssa.librarymanagement_app;
 
 import java.io.IOException;
 
@@ -15,7 +15,7 @@ import com.fssa.librarymanagement.service.UserService;
 /**
  * Servlet implementation class DeleteUserServlet
  */
-@WebServlet("/user/delete-user")
+@WebServlet("/delete")
 public class DeleteUserServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -31,13 +31,12 @@ public class DeleteUserServlet extends HttpServlet {
 
 		try {
 			boolean result = userService.deleteUser(userEmail);
-			if (result) {
-				session.invalidate();
-				request.setAttribute("errorMessage", "Account Deleted Successfully");
-				request.getRequestDispatcher("/login.jsp").forward(request, response);
-			} else {
+			if (!result) {
 				throw new ServiceException("Failed to Delete User");
 			}
+			session.invalidate();
+			request.setAttribute("errorMessage", "Account Deleted Successfully");
+			request.getRequestDispatcher("/home").forward(request, response);
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			request.setAttribute("errorMessage", e.getMessage());

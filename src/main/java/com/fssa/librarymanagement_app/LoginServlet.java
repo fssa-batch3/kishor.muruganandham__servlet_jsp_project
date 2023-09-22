@@ -53,7 +53,9 @@ public class LoginServlet extends HttpServlet {
 		} catch (ServiceException | IOException e) {
 			e.printStackTrace();
 			request.setAttribute("errorMessage", e.getMessage());
-			request.getRequestDispatcher("/login.jsp").forward(request, response);
+			request.setAttribute("loginEmail", email);
+			request.setAttribute("loginPassword", password);
+			request.getRequestDispatcher("/home").forward(request, response);
 		}
 	}
 }

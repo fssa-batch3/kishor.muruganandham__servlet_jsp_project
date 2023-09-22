@@ -27,7 +27,7 @@ String profileImage = (String) session.getAttribute("profileImage");
 					All Books</a>
 			</div>
 		</div>
-		<a href="user-profile"
+		<a href="profile"
 			aria-label="profile-page" class="profile-area"><div
 				class="profile-field"></div>
 			<div class="tooltip" role="tooltip" data-popper-placement="top">

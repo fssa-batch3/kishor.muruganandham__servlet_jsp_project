@@ -42,7 +42,7 @@
 					<div class="tooltip" role="tooltip" data-popper-placement="right">
 						Dashboard
 						<div class="arrow" data-popper-arrow></div>
-					</div> </a> <a href="./admin_library.html" class="nav-items"><i
+					</div> </a> <a href="./book-list" class="nav-items"><i
 					class="bi bi-building"></i>
 					<p>Library</p>
 					<div class="tooltip" role="tooltip" style="top: 195px"
@@ -89,7 +89,7 @@
 						style="bottom: 115px; top: unset" data-popper-placement="right">
 						Theme
 						<div class="arrow" data-popper-arrow></div>
-					</div> </a> <a href="#" class="nav-items" id="sign-out"><i
+					</div> </a> <a href="<%= request.getContextPath() %>/logout" class="nav-items" id="sign-out"><i
 					class="bi bi-box-arrow-left"></i>
 					<p>Log Out</p>
 					<div class="tooltip" role="tooltip"
@@ -177,7 +177,7 @@
 				<div class="input-group"
 					style="display: flex; margin: auto; gap: 20px; max-width: 500px">
 					<button class="user-detail-edit submit" type="button">Edit</button>
-					<button class="user-detail-delete submit" type="button">Delete</button>
+					<button class="user-detail-delete submit" type="button" onclick="location.href = '../delete';">Delete</button>
 					<button class="user-detail-save submit" type="submit">Save
 						Changes</button>
 					<button class="user-detail-cancel submit">Cancel</button>

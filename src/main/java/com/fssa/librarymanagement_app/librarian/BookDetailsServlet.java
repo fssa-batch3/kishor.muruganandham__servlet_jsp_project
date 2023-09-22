@@ -26,13 +26,6 @@ public class BookDetailsServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-//		HttpSession session = request.getSession();
-//		if (session.getAttribute("isAdmin") == null || (boolean) session.getAttribute("isAdmin")
-//				|| session.getAttribute("userId") == null) {
-//			request.setAttribute("errorMessage", "Unauthorized User, Access Restricted");
-//			request.getRequestDispatcher("/error.jsp").forward(request, response);
-//		}
-
 		String bookIdStr = request.getParameter("bookId");
 		if (bookIdStr != null && !bookIdStr.isEmpty()) {
 			int bookId = Integer.parseInt(bookIdStr);

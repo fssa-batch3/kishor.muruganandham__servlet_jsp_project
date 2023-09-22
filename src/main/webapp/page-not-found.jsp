@@ -66,7 +66,7 @@ a {
 						<div class="contant_box_404">
 							<h3 class="h2">Look like you're lost</h3>
 							<p>The page you are looking for is not available!</p>
-							<a href="/LibraryManagement-web/login" class="link_404">Go to
+							<a href="<%= request.getContextPath() %>/home" class="link_404">Go to
 								Home</a>
 						</div>
 					</div>
