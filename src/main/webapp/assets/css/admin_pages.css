@@ -117,6 +117,7 @@
 }
 
 .book-edit-left-wrap {
+	margin-top: 70px;
   max-width: 280px;
   gap: 10px;
   display: flex;

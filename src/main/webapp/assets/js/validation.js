@@ -23,8 +23,21 @@ function validateUsername(userNameInputId, userNameErrorId) {
   }
 }
 
+function handleInputEvent(event, validationFunction) {
+  const inputElement = event.target;
+  inputElement.value = inputElement.value.trim();
+}
 
+document.getElementById('confirm-password-sign-up').addEventListener('input', (event) => {
+  handleInputEvent(event, validatePassword);
+});
 
+document.getElementById('password-sign-up').addEventListener('input', (event) => {
+  handleInputEvent(event, validateConfirmPassword);
+});
+document.getElementById('password-sign-in').addEventListener('input', (event) => {
+  handleInputEvent(event, validateConfirmPassword);
+});
 
 function validateConfirmPassword(
   confirmPasswordInputId,

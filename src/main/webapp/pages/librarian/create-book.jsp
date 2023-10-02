@@ -51,28 +51,28 @@
 					<div class="tooltip" role="tooltip" data-popper-placement="right">
 						Dashboard
 						<div class="arrow" data-popper-arrow></div>
-					</div> </a> <a href="../book-list" class="nav-items"><i
+					</div> </a> <a href="./book-list" class="nav-items"><i
 					class="bi bi-building"></i>
 					<p>Library</p>
 					<div class="tooltip" role="tooltip" style="top: 195px"
 						data-popper-placement="right">
 						Library
 						<div class="arrow" data-popper-arrow></div>
-					</div> </a> <a href="../borrow-list" class="nav-items"><i
+					</div> </a> <a href="./borrow-list" class="nav-items"><i
 					class="bi bi-inboxes"></i>
 					<p>Borrow List</p>
 					<div class="tooltip" role="tooltip" style="top: 255px"
 						data-popper-placement="right">
 						Borrow List
 						<div class="arrow" data-popper-arrow></div>
-					</div> </a> <a href="../create-book" class="nav-items"><i
+					</div> </a> <a href="./create-book" class="nav-items"><i
 					class="bi bi-file-plus"></i>
 					<p>Create Book</p>
 					<div class="tooltip" role="tooltip" style="top: 315px"
 						data-popper-placement="right">
 						Create Book
 						<div class="arrow" data-popper-arrow></div>
-					</div> </a> <a href="../user-list" class="nav-items"><i
+					</div> </a> <a href="./user-list" class="nav-items"><i
 					class="bi bi-person"></i>
 					<p>User List</p>
 					<div class="tooltip" role="tooltip" style="top: 370px"
@@ -128,6 +128,9 @@
 				</div>
 			</div>
 			<div class="book-edit-right-wrap">
+		<div class="form-title">
+					<h2>Create Book 📖</h2>
+				</div>
 				<div class="input-group">
 					<label for="ed-book-title">Title : </label>
 					<div class="input-field">
@@ -166,9 +169,51 @@
 					<div class="input-group">
 						<label for="ed-language">Language :</label>
 						<div class="input-field">
-							<input type="text" name="language" id="ed-language"
-								class="input ed-input" value="${book.language}"
-								placeholder="Enter the book language" />
+							<select name="language" id="ed-language" class="input ed-input">
+								<option value="" disabled selected>Select the book
+									language</option>
+								<option value="Assamese"
+									${book.language == 'Assamese' ? 'selected' : ''}>Assamese</option>
+								<option value="Bengali"
+									${book.language == 'Bengali' ? 'selected' : ''}>Bengali</option>
+								<option value="English"
+									${book.language == 'English' ? 'selected' : ''}>English</option>
+								<option value="Gujarati"
+									${book.language == 'Gujarati' ? 'selected' : ''}>Gujarati</option>
+								<option value="Hindi"
+									${book.language == 'Hindi' ? 'selected' : ''}>Hindi</option>
+								<option value="Kannada"
+									${book.language == 'Kannada' ? 'selected' : ''}>Kannada</option>
+								<option value="Kashmiri"
+									${book.language == 'Kashmiri' ? 'selected' : ''}>Kashmiri</option>
+								<option value="Konkani"
+									${book.language == 'Konkani' ? 'selected' : ''}>Konkani</option>
+								<option value="Maithili"
+									${book.language == 'Maithili' ? 'selected' : ''}>Maithili</option>
+								<option value="Malayalam"
+									${book.language == 'Malayalam' ? 'selected' : ''}>Malayalam</option>
+								<option value="Manipuri"
+									${book.language == 'Manipuri' ? 'selected' : ''}>Manipuri</option>
+								<option value="Marathi"
+									${book.language == 'Marathi' ? 'selected' : ''}>Marathi</option>
+								<option value="Nepali"
+									${book.language == 'Nepali' ? 'selected' : ''}>Nepali</option>
+								<option value="Oriya"
+									${book.language == 'Oriya' ? 'selected' : ''}>Oriya</option>
+								<option value="Punjabi"
+									${book.language == 'Punjabi' ? 'selected' : ''}>Punjabi</option>
+								<option value="Santali"
+									${book.language == 'Santali' ? 'selected' : ''}>Santali</option>
+								<option value="Sindhi"
+									${book.language == 'Sindhi' ? 'selected' : ''}>Sindhi</option>
+								<option value="Tamil"
+									${book.language == 'Tamil' ? 'selected' : ''}>Tamil</option>
+								<option value="Telugu"
+									${book.language == 'Telugu' ? 'selected' : ''}>Telugu</option>
+								<option value="Urdu"
+									${book.language == 'Urdu' ? 'selected' : ''}>Urdu</option>
+							</select>
+
 						</div>
 					</div>
 					<div class="input-group">

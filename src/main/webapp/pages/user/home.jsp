@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,31 +8,26 @@
 <meta charset="UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>History</title>
-<link rel="icon" href="../assets/images/book-half.svg"
-	type="image/x-icon" />
-<link rel="stylesheet" href="../assets/css/main_page.css" />
+<title>Dashboard</title>
+
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css" />
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js"
 	integrity="sha512-42PE0rd+wZ2hNXftlM78BSehIGzezNeQuzihiBCvUEB3CVxHvsShF86wBWwQORNxNINlBPuq7rG4WWhNiTVHFg=="
 	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+<link rel="stylesheet" href="../assets/css/main_page.css" />
+<link rel="icon" href="../assets/images/book-half.svg"
+	type="image/x-icon" />
 <script src="../assets/js/script.js"></script>
 <script src="../assets/js/sidebar.js" defer></script>
-<link
-	href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css"
-	rel="stylesheet">
-<style type="text/css">
-.dataTables_wrapper .dataTables_filter {
-	text-align: center;
-}
-
-#borrowTable a {
-	text-decoration: underline;
-	color: var(--primary-color);
-}
-</style>
 </head>
 <body>
 	<nav class="sidebar" id="sidebar">
@@ -44,8 +38,7 @@
 			</div>
 			<div class="divider-line"></div>
 			<div class="nav-list">
-				<a href="./dashboard" class="nav-items"><i
-					class="bi bi-house"></i>
+				<a href="#" class="nav-items active"><i class="bi bi-house"></i>
 					<p>Home</p>
 					<div class="tooltip" role="tooltip" data-popper-placement="right">
 						Home
@@ -57,7 +50,7 @@
 						data-popper-placement="right">
 						Library
 						<div class="arrow" data-popper-arrow></div>
-					</div> </a> <a href="#" class="nav-items active"><i
+					</div> </a> <a href="./borrow-history" class="nav-items "><i
 					class="bi bi-hourglass-split"></i>
 					<p>History</p>
 					<div class="tooltip" role="tooltip" style="top: 255px"
@@ -83,8 +76,8 @@
 						style="bottom: 115px; top: unset" data-popper-placement="right">
 						Theme
 						<div class="arrow" data-popper-arrow></div>
-					</div> </a> <a href="<%= request.getContextPath() %>/logout" class="nav-items" id="sign-out"><i
-					class="bi bi-box-arrow-left"></i>
+					</div> </a> <a href="<%=request.getContextPath()%>/logout" class="nav-items"
+					id="sign-out"><i class="bi bi-box-arrow-left"></i>
 					<p>Log Out</p>
 					<div class="tooltip" role="tooltip"
 						style="bottom: 55px; top: unset" data-popper-placement="right">
@@ -95,63 +88,81 @@
 		</div>
 	</nav>
 	<section class="main-container">
+
 		<jsp:include page="header.jsp"></jsp:include>
-		<main class="history-container">
-			<h3 id="history-table-heading">History</h3>
-			<div class="history-table-wrapper">
+		<main class="main-section">
+			<section class="card-section">
+				<div class="user-info-container">
+					<canvas id="chart"></canvas>
+				</div>
 
-				<table id="borrowTable" class="display">
-					<thead>
-						<tr>
-							<th>S.No</th>
-							<th>Book Title</th>
-							<th>Borrow Date</th>
-							<th>Due Date</th>
-							<th>Return Date</th>
-							<th>Status</th>
-							<th>Fine</th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach var="borrow" items="${borrowList}" varStatus="loop">
-							<tr>
-								<td>${loop.index + 1}</td>
-								<td><a href="book-details?bookId=${borrow.book.bookId}"
-									target="_blank">${borrow.book.title}</a></td>
-								<td><script>
-				    document.write(moment(
-					    "${borrow.borrowDate}").format(
-					    "MMMM Do, YYYY"));
-				</script></td>
-								<td><script>
-				    document.write(moment("${borrow.dueDate}")
-					    .format("MMMM Do, YYYY"));
-				</script></td>
-								<td><script>
-				    document.write((moment("${borrow.returnDate}").isValid()) ? moment("${borrow.returnDate}").format("MMMM Do, YYYY") : "-");
-				</script></td>
-								<td><span
-									class="${borrow.returned ? 'borrow-status status completed' : 'borrow-status status'}">
-										${borrow.returned ? 'Returned' : 'Pending'} </span></td>
+				<div class="instructions">
+					<h3>Instructions</h3>
+					<ul>
+						<li>Please handle library materials with care and respect to
+							ensure their longevity and availability for future users.</li>
+						<li>Please return borrowed materials on time to avoid late
+							fees and to make the materials available to other users.</li>
+						<li>Please report any damages or issues with borrowed
+							materials to library staff as soon as possible.</li>
+					</ul>
+				</div>
+			</section>
 
-								<td>₹ ${borrow.fine}</td>
-							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
-			</div>
+			<section class="hero-section hero-interseting">
+				<div class="books-content">
+					<h3>
+						CAN BE <br /> <span>INTERESTING</span>
+					</h3>
+					<p>Check this list of books,picked up by us and choose
+						something new!</p>
+					<a href="./book-list">See Full List</a>
+				</div>
+				<div class="book-wrap generated-books interesting-books">
+					<c:forEach items="${bookList}" var="book">
+						<div data-id="${book.bookId}" class="book">
+							<a class="book-cover" href="book-details?bookId=${book.bookId}"
+								data-filter-tag="${book.genre}"> <img
+								src="${book.coverImage}" alt="${book.title}" width="150px">
+							</a>
+							<div class="book-title">
+								<h4>${book.title}</h4>
+								<p>${book.author}</p>
+							</div>
+						</div>
+					</c:forEach>
+				</div>
+			</section>
 		</main>
 	</section>
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<script
-		src="https://cdn.datatables.net/v/dt/dt-1.13.6/datatables.min.js"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	<script>
-	$(document).ready(function() {
-	    $('#borrowTable').DataTable();
+	
+
+	const ctx = document.getElementById('chart').getContext('2d');
+	const chart = new Chart(ctx, {
+	    type : 'doughnut',
+	    data : {
+		labels : [ 'Books in Library', 'Books Borrowed',
+			'Ratings Given', 'Comments Written' ],
+		datasets : [ {
+		    label : 'Counts',
+		    data : [ ${booksInLibrary}, ${booksBorrowed}, ${ratingsGiven},
+			${commentsWritten} ],
+		    backgroundColor : [ 'rgba(54, 162, 235)',
+			    'rgba(255, 99, 132 )',
+			    'rgba(75, 192, 192)',
+			    'rgba(255, 206, 86)' ],
+		    borderWidth : 1
+		} ]
+	    },
+          
 	});
+	
+
     </script>
-    
-    	<c:if test="${not empty successMessage}">
+	<c:if test="${not empty successMessage}">
 		<script>
 	            showToastrMessage('${successMessage}', 'success');
 		</script>

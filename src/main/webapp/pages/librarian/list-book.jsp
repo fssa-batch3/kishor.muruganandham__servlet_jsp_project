@@ -18,7 +18,6 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js"
 	integrity="sha512-42PE0rd+wZ2hNXftlM78BSehIGzezNeQuzihiBCvUEB3CVxHvsShF86wBWwQORNxNINlBPuq7rG4WWhNiTVHFg=="
 	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="../assets/js/db.js"></script>
 <script src="../assets/js/script.js"></script>
 <script src="../assets/js/header.js" defer></script>
 <script src="../assets/js/sidebar.js" defer></script>
@@ -85,8 +84,8 @@
 						style="bottom: 115px; top: unset" data-popper-placement="right">
 						Theme
 						<div class="arrow" data-popper-arrow></div>
-					</div> </a> <a href="<%= request.getContextPath() %>/logout" class="nav-items" id="sign-out"><i
-					class="bi bi-box-arrow-left"></i>
+					</div> </a> <a href="<%=request.getContextPath()%>/logout"
+					class="nav-items" id="sign-out"><i class="bi bi-box-arrow-left"></i>
 					<p>Log Out</p>
 					<div class="tooltip" role="tooltip"
 						style="bottom: 55px; top: unset" data-popper-placement="right">
@@ -117,9 +116,7 @@
 							<h4>${book.title}</h4>
 							<p>${book.author}</p>
 						</div>
-						<span class="fav-btn active"> <i
-							class="bi bi-bookmark-heart-fill"></i>
-						</span>
+
 					</div>
 				</c:forEach>
 			</div>

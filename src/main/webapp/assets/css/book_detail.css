@@ -201,8 +201,8 @@
   cursor: pointer;
 }
 
-.comment-actions span:nth-child(3),
-.comment-actions span:nth-child(3)::before {
+.comment-actions span:nth-child(2),
+.comment-actions span:nth-child(2)::before {
   color: var(--danger-red);
 }
 

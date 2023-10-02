@@ -19,11 +19,11 @@ String profileImage = (String) session.getAttribute("profileImage");
 		<div class="search-field">
 			<label for="head-search"><i class="bi bi-search"></i></label><input
 				type="search" name="head-search" id="head-search"
-				placeholder="Search..." class="search-list-show" />
+				placeholder="Search..." class="search-list-show" onclick="addSearchListEventListeners()" />
 			<div class="focus-out"></div>
 			<div class="search-list">
-				<div class="search-result"></div>
-				<a href="http://localhost:5500/pages/library.html" class="show-all">Show
+				<div class="search-result"><span class="no-result">Start typing to see results...</span></div>
+				<a href="./book-list" class="show-all">Show
 					All Books</a>
 			</div>
 		</div>
@@ -36,44 +36,134 @@ String profileImage = (String) session.getAttribute("profileImage");
 			</div></a>
 	</div>
 </header>
-
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
-        function displayUserData() {
-            try {
-                const nameDisplay = document.querySelector(".header-username");
-                const greetings = document.querySelector(".greetings");
-                const now = moment();
-                if (
-                    now.isBetween(
-                        moment("05:00:00", "HH:mm:ss"),
-                        moment("12:00:00", "HH:mm:ss")
-                    )
-                ) {
-                    greetings.textContent = 'Good morning!';
-                } else if (
-                    now.isBetween(
-                        moment("12:00:00", "HH:mm:ss"),
-                        moment("18:00:00", "HH:mm:ss")
-                    )
-                ) {
-                    greetings.textContent = 'Good afternoon!';
-                } else {
-                    greetings.textContent = 'Good evening!';
-                }
-                const profileDisplay = document.querySelector(".profile-field");
+//Keyboard shortcut for focusing the search bar
+document.addEventListener("keydown", (e) => {
+	if (e.ctrlKey && e.key === "/") {
+		document.getElementById("head-search").focus();
+	}
+});
 
-                profileDisplay.addEventListener("mouseenter", () => {
-                    profileDisplay.nextElementSibling.style.display = "inline-block";
-                });
 
-                profileDisplay.addEventListener("mouseleave", () => {
-                    profileDisplay.nextElementSibling.style.display = "none";
-                });
-                nameDisplay.textContent = `Hello <%=userName%>`;
-                profileDisplay.style.background = `url(<%=profileImage%>) center center/cover no-repeat`;
-            } catch (error) {
-                console.error(`Error in displayUserData function: ${error}`);
-            }
-        }
-        window.addEventListener("load", displayUserData);
+
+
+// Toggle sidebar
+const sideToggle = document.querySelector(".side-toggle");
+const sidebar = document.getElementById("sidebar");
+const menuLines = document.querySelectorAll(".menu-line");
+
+sideToggle.addEventListener("click", () => {
+	sidebar.classList.toggle("active");
+	menuLines.forEach((line) => line.classList.toggle("active"));
+});
+
+
+function addSearchListEventListeners() {
+	const searchListShow = document.querySelector(".search-list-show");
+	const searchList = document.querySelector(".search-list");
+	const focusOut = document.querySelector(".focus-out");
+	const searchInput = document.getElementById("head-search");
+
+	searchInput?.removeEventListener("input", handleSearchInput);
+
+	searchListShow?.addEventListener("focus", function () {
+		searchList.classList.add("active");
+		focusOut.classList.add("active");
+	});
+
+	focusOut.addEventListener("click", function () {
+		searchList.classList.remove("active");
+		focusOut.classList.remove("active");
+	});
+
+	searchInput?.addEventListener("input", handleSearchInput);
+}
+
+function handleSearchInput() {
+	const searchValue = this.value.toLowerCase();
+	const url = "../search-book?q=" + searchValue;
+
+	axios.get(url)
+		.then(response => {
+			const books = response.data;
+			createSearchItems(books);
+		})
+		.catch(error => {
+			alert('Error retrieving books:', error);
+		});
+}
+
+
+function displayUserData() {
+	try {
+		const nameDisplay = document.querySelector(".header-username");
+		const greetings = document.querySelector(".greetings");
+		const now = moment();
+		if (
+			now.isBetween(
+				moment("05:00:00", "HH:mm:ss"),
+				moment("12:00:00", "HH:mm:ss")
+			)
+		) {
+			greetings.textContent = 'Good morning!';
+		} else if (
+			now.isBetween(
+				moment("12:00:00", "HH:mm:ss"),
+				moment("18:00:00", "HH:mm:ss")
+			)
+		) {
+			greetings.textContent = 'Good afternoon!';
+		} else {
+			greetings.textContent = 'Good evening!';
+		}
+		const profileDisplay = document.querySelector(".profile-field");
+
+		profileDisplay.addEventListener("mouseenter", () => {
+			profileDisplay.nextElementSibling.style.display = "inline-block";
+		});
+
+		profileDisplay.addEventListener("mouseleave", () => {
+			profileDisplay.nextElementSibling.style.display = "none";
+		});
+		nameDisplay.textContent = `Hello <%=userName%>`;
+		profileDisplay.style.background = `url(<%=profileImage%>) center center/cover no-repeat`;
+	} catch (error) {
+		console.error(`Error in displayUserData function: ${error}`);
+	}
+}
+window.addEventListener("load", displayUserData);
+function createSearchItems(books) {
+    const searchResult = document.querySelector(".search-result");
+    searchResult.innerHTML = '';
+    if (!searchResult) {
+      return;
+    }
+    const searchItems = books.map((book) => {
+      const searchItem = document.createElement("a");
+      searchItem.classList.add("search-item");
+      searchItem.dataset.id = book.bookId;
+      searchItem.href = "./book/update?bookId="+ book.bookId;
+
+      const searchImg = document.createElement("img");
+      searchImg.classList.add("search-item-img");
+      searchImg.src = book.coverImage;
+      searchImg.alt = book.coverImage;
+      searchImg.width = 70;
+      searchItem.append(searchImg);
+
+      const searchTitle = document.createElement("p");
+      searchTitle.classList.add("search-item-title");
+      searchTitle.textContent = book.title;
+      searchItem.append(searchTitle);
+
+      const searchArrow = document.createElement("i");
+      searchArrow.classList.add("bi", "bi-caret-right-fill");
+      searchItem.append(searchArrow);
+
+      return searchItem;
+    });
+
+    searchResult.append(...searchItems);
+  }
     </script>

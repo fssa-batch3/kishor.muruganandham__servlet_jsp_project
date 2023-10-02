@@ -1,5 +1,3 @@
-const thisUser = JSON.parse(localStorage.getItem("user"));
-
 // Dark Mode
 // Get the current value of the "dark-mode" key from local storage
 const isDarkMode = localStorage.getItem("dark-mode");
@@ -30,49 +28,57 @@ function darkMode() {
   }
 }
 
-function generateGuid() {
-  let result, i, j;
-  result = "";
-  for (j = 0; j < 16; j++) {
-    i = Math.floor(Math.random() * 16).toString(16);
-    result = result + i;
-  }
-  return result;
+
+function showToastrMessage(message, messageType) {
+	        toastr.options = {
+	            "closeButton": true,
+	            "progressBar": true,
+	            "positionClass": "toast-top-center",
+	            "showDuration": "300",
+	            "hideDuration": "1000",
+	            "timeOut": "8000",
+	        };
+
+	        if (messageType === "success") {
+	            toastr.success(message, "Success");
+	        } else if (messageType === "error") {
+	            toastr.error(message, "Error");
+	        } else if (messageType === "warning") {
+	            toastr.warning(message, "Warning");
+	        } else if (messageType === "info") {
+	            toastr.info(message, "Info");
+	        } else {
+	            toastr.info(message);
+	        }
+}
+document.addEventListener('DOMContentLoaded', function () {
+    // Check for successMessage and errorMessage attributes set by the servlet
+    const successMessage = document.body.getAttribute('successMessage');
+    const errorMessage = document.body.getAttribute('errorMessage');
+	console.log(errorMessage);
+	console.log(successMessage);
+    if (successMessage) {
+        // Show success message
+        showToastrMessage(successMessage, 'success');
+    }
+
+    if (errorMessage) {
+        // Show error message
+        showToastrMessage(errorMessage, 'error');
+    }
+});
+
+function dynamicTime(time) {
+	    const momentTime = moment(time);
+	    const diffInDays = moment().diff(momentTime, "days");
+	    const formattedDateTime =
+	      diffInDays > 1
+	        ? momentTime.format("DD-MMM-YYYY h:mm A")
+	        : momentTime.fromNow();
+	    return formattedDateTime;
 }
 
-function encryptPassword(password) {
-  try {
-    // Generate a random salt value
-    const salt = CryptoJS.lib.WordArray.random(16);
 
-    // Hash the password using SHA-256 with salt
-    const hashedPassword = CryptoJS.SHA256(password + salt);
-
-    // Return the salt and hashed password as a string
-    return salt.toString() + " " + hashedPassword.toString();
-  } catch (error) {
-    console.error("Error encrypting password:", error);
-    throw error;
-  }
-}
-
-function comparePassword(userInputPassword, saltAndHashedPassword) {
-  try {
-    // Split the stored salt and hashed password
-    const [salt, storedHash] = saltAndHashedPassword.split(" ");
-
-    // Hash the user input password with the stored salt
-    const hashedPassword = CryptoJS.SHA256(
-      userInputPassword + CryptoJS.enc.Hex.parse(salt)
-    );
-
-    // Compare the hashed user input password with the stored hash
-    return hashedPassword.toString() === storedHash;
-  } catch (error) {
-    console.error("Error comparing password:", error);
-    throw error;
-  }
-}
 
 function searchBooks() {
   const searchValue = document
@@ -102,200 +108,18 @@ function activeTab(evt, tabName) {
   evt.currentTarget.classList.add("active");
 }
 
-function setRatingValue(data) {
-  let radioButtons = document.getElementsByName("rating");
-  for (const radioButton of radioButtons) {
-    if (radioButton.id === "rating-" + data) {
-      radioButton.checked = true;
-      break;
-    }
-  }
-}
 
-async function getBookGenres() {
-  try {
-    const bookList = await getData("Books");
-    const bookCountsByGenre = {};
-    bookList.forEach((book) => {
-      if (book["isActive"]) {
-        book.tags.forEach((tag) => {
-          if (bookCountsByGenre[tag]) {
-            bookCountsByGenre[tag]++;
-          } else {
-            bookCountsByGenre[tag] = 1;
-          }
-        });
-      }
-    });
-    const uniqueCategories = [
-      ...new Set(
-        Object.keys(bookCountsByGenre).map((cat) => cat.toLowerCase())
-      ),
-    ];
-    return uniqueCategories.reduce((acc, cat) => {
-      const catCounts = Object.entries(bookCountsByGenre)
-        .filter(([key, val]) => key.toLowerCase() === cat)
-        .map(([key, val]) => val);
-      acc[cat] = catCounts.reduce((acc, val) => acc + val, 0);
-      return acc;
-    }, {});
-  } catch (error) {
-    console.error(error);
-    return null;
-  }
-}
 
-async function showTags() {
-  const tagsArray = await getBookGenres();
-  const tagSettings = Object.keys(tagsArray);
-  tagSettings.forEach((tags) => {
-    const tagBtn = document.createElement("button");
-    tagBtn.setAttribute("onclick", `tagFilterBooks('${tags}')`);
-    tagBtn.innerText = tags;
-    document.querySelector(".library-tags").append(tagBtn);
-  });
-}
 
-// This function generates a book card element and appends it to a book rack container.
-function generateBook(book, bookRack) {
-  try {
-    // Check if the book is active before proceeding.
-    if (book.isActive !== true) {
-      return;
-    }
 
-    // Create a new div element to hold the book card.
-    const bookDiv = document.createElement("div");
-    bookDiv.dataset.id = book.id;
-    bookDiv.className = "book";
 
-    // Create a new anchor element for the book cover image, and set the link based on user role.
-    const bookCover = document.createElement("a");
-    bookCover.className = "book-cover";
-    if (thisUser.role === "admin") {
-      bookCover.href = "../../pages/admin/book_edit.html?id=" + book.id;
-    } else {
-      bookCover.href = "../../pages/book_details.html?id=" + book.id;
-    }
+const setLoader = (status) => {
+  const parentElement = document.getElementById('loader-container');
 
-    // Set the filter tag for the book based on its tags.
-    bookCover.dataset.filterTag = book.tags;
-
-    // Create a new image element for the book cover, and set its source and alt text.
-    const bookImage = document.createElement("img");
-    bookImage.src = book.image.src;
-    bookImage.addEventListener("error", () => {
-      bookImage.src =
-        "https://via.placeholder.com/280x400/cccccc/3b3b3b.jpeg?text=Error+Loading+Image";
-    });
-    bookImage.alt = book.image.alt;
-    bookImage.setAttribute("width", "150px");
-
-    // Create a new span element for the favorite button, and add a bookmark icon to it.
-    const favBtn = document.createElement("span");
-    favBtn.className = "fav-btn";
-    const favIcon = document.createElement("i");
-    favIcon.className = "bi bi-bookmark-heart";
-
-    // Create a new div element for the book title and author, and set the title and author text.
-    const bookTitle = document.createElement("div");
-    bookTitle.className = "book-title";
-    const bookName = document.createElement("h4");
-    bookName.innerText = book.title;
-    const bookAuthor = document.createElement("p");
-    bookAuthor.innerText = book.author;
-
-    // Append the book cover, favorite button, title and author to the book card div element.
-    bookDiv.append(bookCover, bookTitle);
-    if (thisUser.role === "user") {
-      bookDiv.append(favBtn);
-    }
-    bookCover.append(bookImage);
-    favBtn.append(favIcon);
-    bookTitle.append(bookName, bookAuthor);
-
-    // Append the book card div element to the book rack container.
-    bookRack.append(bookDiv);
-  } catch (error) {
-    // Log any errors to the console for debugging purposes.
-    console.error(error);
-  }
-}
-
-function toggleFavourites() {
-  getOneData(`Users/${thisUser.id}`)
-    .then((currentUser) => {
-      // Get all the favorite buttons on the page.
-      const favButtons = document.querySelectorAll(".fav-btn");
-
-      // Add an event listener to each favorite button to toggle the book's favorite status.
-      favButtons.forEach((button) => {
-        const bookId = button.parentElement.dataset.id;
-        button.addEventListener("click", () => {
-          const userFavourites = currentUser["favourites"];
-          if (userFavourites?.includes(bookId)) {
-            const index = userFavourites.indexOf(bookId);
-            userFavourites.splice(index, 1);
-          } else {
-            userFavourites?.push(bookId);
-          }
-          putData(`Users/${currentUser.id}`, currentUser)
-            .then(() => checkForFavourites())
-            .catch((error) => {
-              console.error(error);
-              alert(
-                "Error checking for favourites. Please try again. Error: " +
-                  error
-              );
-            });
-        });
-      });
-    })
-    .catch((error) => {
-      console.error(error);
-      alert("Error Toggling Favourites, Please try again. Error: " + error);
-    });
-}
-
-function checkForFavourites() {
-  getOneData(`Users/${thisUser.id}`)
-    .then((currentUser) => {
-      // Get the user's favourites data.
-      const favourites = currentUser.favourites;
-      // Get all the favourite buttons on the page.
-      const favButtons = document.querySelectorAll(".fav-btn");
-
-      // Loop through each button and update its active state based on the favourites data.
-      favButtons.forEach((button) => {
-        const isFavourite = favourites?.includes(
-          button.parentElement.dataset.id
-        );
-
-        if (isFavourite) {
-          button.classList.add("active");
-          button.firstChild.classList.replace(
-            "bi-bookmark-heart",
-            "bi-bookmark-heart-fill"
-          );
-        } else {
-          button.classList.remove("active");
-          button.firstChild.classList.replace(
-            "bi-bookmark-heart-fill",
-            "bi-bookmark-heart"
-          );
-        }
-      });
-    })
-    .catch((error) => {
-      console.error("An error occurred in checkForFavourites function:", error);
-    });
-}
-
-function setLoader(status) {
-  const bodyContainer = document.body;
-  const loaderContainer = document.createElement("div");
-  loaderContainer.className = "loader";
-  const loaderBody = `
+  if (status === true) {
+    const loaderContainer = document.createElement("div");
+    loaderContainer.className = "loader";
+    loaderContainer.innerHTML = `
   <div>
     <ul>
       <li>
@@ -330,79 +154,15 @@ function setLoader(status) {
       </li>
     </ul>
   </div><span>Loading...</span>`;
-  loaderContainer.innerHTML = loaderBody;
+    parentElement.appendChild(loaderContainer);
 
-  if (status === true) {
-    bodyContainer.append(loaderContainer);
-    bodyContainer.innerHTML += `<div class="background-blur"></div>`;
+    const backgroundBlur = document.createElement("div");
+    backgroundBlur.className = "background-blur";
+    parentElement.appendChild(backgroundBlur);
+  } else {
+    parentElement.querySelector(".loader")?.remove();
+    parentElement.querySelector(".background-blur")?.remove();
   }
-  setTimeout(() => {
-    if (status === true) {
-      setLoader(false);
-    }
-  }, 8000);
-  if (status === false) {
-    document.querySelector(".loader")?.remove();
-    document.querySelector(".background-blur")?.remove();
-  }
-}
+};
 
-function showUploadWidget() {
-  cloudinary.openUploadWidget(
-    {
-      cloudName: "dvgctptr1",
-      uploadPreset: "ktr5yccc",
-      sources: [
-        "local",
-        "url",
-        "camera",
-        "image_search",
-        "google_drive",
-        "facebook",
-        "dropbox",
-        "instagram",
-        "shutterstock",
-        "getty",
-        "istock",
-        "unsplash",
-      ],
-      googleApiKey: "<image_search_google_api_key>",
-      showAdvancedOptions: true,
-      cropping: true,
-      multiple: false,
-      defaultSource: "local",
-      styles: {
-        palette: {
-          window: "#ffffff",
-          sourceBg: "#f4f4f5",
-          windowBorder: "#90a0b3",
-          tabIcon: "#000000",
-          inactiveTabIcon: "#555a5f",
-          menuIcons: "#555a5f",
-          link: "#4F30E8",
-          action: "#1A936B",
-          inProgress: "#4F30E8",
-          complete: "#1A936B",
-          error: "#EA3A3D",
-          textDark: "#000000",
-          textLight: "#fcfffd",
-        },
-        fonts: { default: null, "sans-serif": { url: null, active: true } },
-      },
-    },
-    (err, info) => {
-      if (!err && info.event == "success") {
-        const imgUrl = info.info.secure_url;
-        console.log(info);
-        if (window.location.pathname === "/pages/user_profile.html") {
-          thisUser.profile = imgUrl;
-          profDisp.style.background = `url(${imgUrl}) no-repeat center center/cover`;
-        }
-        if (window.location.pathname === "/pages/admin/book_edit.html") {
-          thisBook.image.src = imgUrl;
-          bookImage.src = imgUrl;
-        }
-      }
-    }
-  );
-}
+

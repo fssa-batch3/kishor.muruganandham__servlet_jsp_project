@@ -113,7 +113,9 @@
 .focus-out.active {
     position: fixed;
     inset: 0;
-    z-index: 1
+    z-index: 1;
+    top: 90px;
+    background-color: #00000099;
 }
 
 .search-list {
@@ -121,13 +123,20 @@
 }
 
 .search-result {
+	position: relative;
     display: flex;
     flex-direction: column;
     gap: 5px;
     height: 280px;
     overflow-y: auto
 }
-
+.search-result .no-result{
+	font-weight: bold;
+	    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
 .search-item {
     display: flex;
     justify-content: space-between;
