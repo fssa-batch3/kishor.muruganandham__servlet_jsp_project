@@ -19,9 +19,7 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js"
 	integrity="sha512-42PE0rd+wZ2hNXftlM78BSehIGzezNeQuzihiBCvUEB3CVxHvsShF86wBWwQORNxNINlBPuq7rG4WWhNiTVHFg=="
 	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="../../assets/js/db.js"></script>
 <script src="../../assets/js/script.js"></script>
-<script src="../../assets/js/header.js" defer></script>
 <script src="../../assets/js/sidebar.js" defer></script>
 <link
 	href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css"
@@ -47,44 +45,38 @@
 			</div>
 			<div class="divider-line"></div>
 			<div class="nav-list">
-				<a href="./admin-dashboard.html" class="nav-items"><i
-					class="bi bi-grid"></i>
-					<p>Dashboard</p>
-					<div class="tooltip" role="tooltip" data-popper-placement="right">
-						Dashboard
-						<div class="arrow" data-popper-arrow></div>
-					</div> </a> <a href="./admin_library.html" class="nav-items"><i
+				<a href="../book-list" class="nav-items"><i
 					class="bi bi-building"></i>
 					<p>Library</p>
-					<div class="tooltip" role="tooltip" style="top: 195px"
+					<div class="tooltip" role="tooltip" style="top: 140px"
 						data-popper-placement="right">
 						Library
 						<div class="arrow" data-popper-arrow></div>
 					</div> </a> <a href="../borrow-list" class="nav-items"><i
-					class="bi bi-inboxes-fill"></i>
+					class="bi bi-inboxes"></i>
 					<p>Borrow List</p>
-					<div class="tooltip" role="tooltip" style="top: 255px"
+					<div class="tooltip" role="tooltip" style="top: 195px"
 						data-popper-placement="right">
 						Borrow List
 						<div class="arrow" data-popper-arrow></div>
-					</div> </a> <a href="./create-book" class="nav-items"><i
+					</div> </a> <a href="../create-book" class="nav-items"><i
 					class="bi bi-file-plus"></i>
 					<p>Create Book</p>
-					<div class="tooltip" role="tooltip" style="top: 315px"
+					<div class="tooltip" role="tooltip" style="top: 255px"
 						data-popper-placement="right">
 						Create Book
 						<div class="arrow" data-popper-arrow></div>
-					</div> </a> <a href="./user-list" class="nav-items"><i
-					class="bi bi-person"></i>
+					</div> </a> <a href="../user-list" class="nav-items "><i
+					class="bi bi-person-fill"></i>
 					<p>User List</p>
-					<div class="tooltip" role="tooltip" style="top: 370px"
+					<div class="tooltip" role="tooltip" style="top: 310px"
 						data-popper-placement="right">
 						User List
 						<div class="arrow" data-popper-arrow></div>
-					</div> </a> <a href="./bookrequest_list.html" class="nav-items "><i
+					</div> </a> <a href="../book-request" class="nav-items "><i
 					class="bi bi-hdd-stack"></i>
 					<p>Book Request List</p>
-					<div class="tooltip" role="tooltip" style="top: 430px;"
+					<div class="tooltip" role="tooltip" style="top: 370px;"
 						data-popper-placement="right">
 						Book Request List
 						<div class="arrow" data-popper-arrow></div>

@@ -19,7 +19,7 @@ String profileImage = (String) session.getAttribute("profileImage");
 		<div class="search-field">
 			<label for="head-search"><i class="bi bi-search"></i></label><input
 				type="search" name="head-search" id="head-search"
-				placeholder="Search..." class="search-list-show" onclick="addSearchListEventListeners()" />
+				placeholder="Search... [Ctrl + / ]" class="search-list-show" />
 			<div class="focus-out"></div>
 			<div class="search-list">
 				<div class="search-result"><span class="no-result">Start typing to see results...</span></div>
@@ -38,6 +38,8 @@ String profileImage = (String) session.getAttribute("profileImage");
 </header>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
+
+
 //Keyboard shortcut for focusing the search bar
 document.addEventListener("keydown", (e) => {
 	if (e.ctrlKey && e.key === "/") {
@@ -45,10 +47,7 @@ document.addEventListener("keydown", (e) => {
 	}
 });
 
-
-
-
-// Toggle sidebar
+//Toggle sidebar
 const sideToggle = document.querySelector(".side-toggle");
 const sidebar = document.getElementById("sidebar");
 const menuLines = document.querySelectorAll(".menu-line");
@@ -59,7 +58,7 @@ sideToggle.addEventListener("click", () => {
 });
 
 
-function addSearchListEventListeners() {
+
 	const searchListShow = document.querySelector(".search-list-show");
 	const searchList = document.querySelector(".search-list");
 	const focusOut = document.querySelector(".focus-out");
@@ -78,7 +77,6 @@ function addSearchListEventListeners() {
 	});
 
 	searchInput?.addEventListener("input", handleSearchInput);
-}
 
 function handleSearchInput() {
 	const searchValue = this.value.toLowerCase();
@@ -134,36 +132,41 @@ function displayUserData() {
 }
 window.addEventListener("load", displayUserData);
 function createSearchItems(books) {
-    const searchResult = document.querySelector(".search-result");
-    searchResult.innerHTML = '';
-    if (!searchResult) {
+  const searchResult = document.querySelector(".search-result");
+  searchResult.innerHTML = '';
+  if (!books || books.length === 0) {
+      searchResult.innerHTML = '<span class="no-result">No Result Found</span>';
       return;
-    }
-    const searchItems = books.map((book) => {
-      const searchItem = document.createElement("a");
-      searchItem.classList.add("search-item");
-      searchItem.dataset.id = book.bookId;
-      searchItem.href = "./book/update?bookId="+ book.bookId;
-
-      const searchImg = document.createElement("img");
-      searchImg.classList.add("search-item-img");
-      searchImg.src = book.coverImage;
-      searchImg.alt = book.coverImage;
-      searchImg.width = 70;
-      searchItem.append(searchImg);
-
-      const searchTitle = document.createElement("p");
-      searchTitle.classList.add("search-item-title");
-      searchTitle.textContent = book.title;
-      searchItem.append(searchTitle);
-
-      const searchArrow = document.createElement("i");
-      searchArrow.classList.add("bi", "bi-caret-right-fill");
-      searchItem.append(searchArrow);
-
-      return searchItem;
-    });
-
-    searchResult.append(...searchItems);
   }
-    </script>
+ 
+  const searchItems = books.map((book) => {
+    const searchItem = document.createElement("a");
+    searchItem.classList.add("search-item");
+    searchItem.dataset.id = book.bookId;
+    searchItem.href = "./book/update?bookId="+ book.bookId;
+
+    const searchImg = document.createElement("img");
+    searchImg.classList.add("search-item-img");
+    searchImg.src = book.coverImage;
+    searchImg.alt = book.coverImage;
+    searchImg.width = 70;
+    searchItem.append(searchImg);
+
+    const searchTitle = document.createElement("p");
+    searchTitle.classList.add("search-item-title");
+    searchTitle.textContent = book.title;
+    searchItem.append(searchTitle);
+
+    const searchArrow = document.createElement("i");
+    searchArrow.classList.add("bi", "bi-caret-right-fill");
+    searchItem.append(searchArrow);
+
+    return searchItem;
+  });
+
+  searchResult.append(...searchItems);
+}
+
+</script>
+
+

@@ -19,9 +19,7 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js"
 	integrity="sha512-42PE0rd+wZ2hNXftlM78BSehIGzezNeQuzihiBCvUEB3CVxHvsShF86wBWwQORNxNINlBPuq7rG4WWhNiTVHFg=="
 	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="../assets/js/db.js"></script>
 <script src="../assets/js/script.js"></script>
-<script src="../assets/js/header.js" defer></script>
 <script src="../assets/js/sidebar.js" defer></script>
 <link
 	href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css"
@@ -36,7 +34,7 @@
 	color: var(--primary-color);
 }
 
-#borrowTable .submit{
+#borrowTable .submit {
 	text-decoration: none;
 	color: white;
 	padding: 10px 15px;
@@ -53,44 +51,37 @@
 			</div>
 			<div class="divider-line"></div>
 			<div class="nav-list">
-				<a href="./admin-dashboard.html" class="nav-items"><i
-					class="bi bi-grid"></i>
-					<p>Dashboard</p>
-					<div class="tooltip" role="tooltip" data-popper-placement="right">
-						Dashboard
-						<div class="arrow" data-popper-arrow></div>
-					</div> </a> <a href="./book-list" class="nav-items"><i
+				<a href="./book-list" class="nav-items"><i
 					class="bi bi-building"></i>
 					<p>Library</p>
-					<div class="tooltip" role="tooltip" style="top: 195px"
+					<div class="tooltip" role="tooltip" style="top: 140px"
 						data-popper-placement="right">
 						Library
 						<div class="arrow" data-popper-arrow></div>
-					</div> </a> <a href="#" class="nav-items active"><i
-					class="bi bi-inboxes-fill"></i>
+					</div> </a> <a href="#" class="nav-items active"><i class="bi bi-inboxes"></i>
 					<p>Borrow List</p>
-					<div class="tooltip" role="tooltip" style="top: 255px"
+					<div class="tooltip" role="tooltip" style="top: 195px"
 						data-popper-placement="right">
 						Borrow List
 						<div class="arrow" data-popper-arrow></div>
 					</div> </a> <a href="./create-book" class="nav-items"><i
 					class="bi bi-file-plus"></i>
 					<p>Create Book</p>
-					<div class="tooltip" role="tooltip" style="top: 315px"
+					<div class="tooltip" role="tooltip" style="top: 255px"
 						data-popper-placement="right">
 						Create Book
 						<div class="arrow" data-popper-arrow></div>
-					</div> </a> <a href="./user-list" class="nav-items"><i
-					class="bi bi-person"></i>
+					</div> </a> <a href="./user-list" class="nav-items "><i
+					class="bi bi-person-fill"></i>
 					<p>User List</p>
-					<div class="tooltip" role="tooltip" style="top: 370px"
+					<div class="tooltip" role="tooltip" style="top: 310px"
 						data-popper-placement="right">
 						User List
 						<div class="arrow" data-popper-arrow></div>
-					</div> </a> <a href="./bookrequest_list.html" class="nav-items "><i
+					</div> </a> <a href="./book-request" class="nav-items "><i
 					class="bi bi-hdd-stack"></i>
 					<p>Book Request List</p>
-					<div class="tooltip" role="tooltip" style="top: 430px;"
+					<div class="tooltip" role="tooltip" style="top: 370px;"
 						data-popper-placement="right">
 						Book Request List
 						<div class="arrow" data-popper-arrow></div>
@@ -106,8 +97,8 @@
 						style="bottom: 115px; top: unset" data-popper-placement="right">
 						Theme
 						<div class="arrow" data-popper-arrow></div>
-					</div> </a> <a href="<%= request.getContextPath() %>/logout" class="nav-items" id="sign-out"><i
-					class="bi bi-box-arrow-left"></i>
+					</div> </a> <a href="<%=request.getContextPath()%>/logout"
+					class="nav-items" id="sign-out"><i class="bi bi-box-arrow-left"></i>
 					<p>Log Out</p>
 					<div class="tooltip" role="tooltip"
 						style="bottom: 55px; top: unset" data-popper-placement="right">
@@ -147,10 +138,8 @@
 								<td><img src="${borrow.user.profileImage}"
 									alt="Profile Image" width="50px" height="50px"
 									style="border-radius: 50%"></td>
-								<td><a href="borrow-list/user?userId=${borrow.user.userId}"
-									target="_blank">${borrow.user.name}</a></td>
-								<td><a href="borrow-list/book?bookId=${borrow.book.bookId}"
-									target="_blank">${borrow.book.title}</a></td>
+								<td><a href="borrow-list/user?userId=${borrow.user.userId}">${borrow.user.name}</a></td>
+								<td><a href="borrow-list/book?bookId=${borrow.book.bookId}">${borrow.book.title}</a></td>
 								<td><script>
 				    document.write(moment(
 					    "${borrow.borrowDate}").format(
@@ -173,7 +162,8 @@
 											<span class="borrow-status status completed">Returned</span>
 										</c:when>
 										<c:otherwise>
-											<a href="borrow-list/return?borrowId=${borrow.borrowId}" class="submit">Return Book</a>
+											<a href="borrow-list/return?borrowId=${borrow.borrowId}"
+												class="submit">Return Book</a>
 										</c:otherwise>
 									</c:choose></td>
 								<td>₹ ${borrow.fine}</td>

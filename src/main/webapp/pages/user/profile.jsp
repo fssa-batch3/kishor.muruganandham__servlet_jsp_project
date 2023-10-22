@@ -265,6 +265,8 @@
 	    profileEditBtn.style.display = "block";
 	});
 
+	profileEditBtn.addEventListener("click",openBorrowModal);
+	
 	cancelBtn.addEventListener("click", (e) => {
 	    e.preventDefault();
 	    location.reload();

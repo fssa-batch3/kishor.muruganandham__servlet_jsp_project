@@ -30,11 +30,8 @@
 	type="text/javascript">
     
 </script>
-<script src="../../assets/js/db.js"></script>
 <script src="../../assets/js/script.js"></script>
-<script src="../../assets/js/header.js" defer></script>
 <script src="../../assets/js/sidebar.js" defer></script>
-<script src="../../assets/js/book.js"></script>
 </head>
 <body>
 	<nav class="sidebar" id="sidebar">
@@ -45,44 +42,38 @@
 			</div>
 			<div class="divider-line"></div>
 			<div class="nav-list">
-				<a href="./admin-dashboard.html" class="nav-items"><i
-					class="bi bi-grid"></i>
-					<p>Dashboard</p>
-					<div class="tooltip" role="tooltip" data-popper-placement="right">
-						Dashboard
-						<div class="arrow" data-popper-arrow></div>
-					</div> </a> <a href="../book-list" class="nav-items"><i
+				 <a href="../book-list" class="nav-items"><i
 					class="bi bi-building"></i>
 					<p>Library</p>
-					<div class="tooltip" role="tooltip" style="top: 195px"
+					<div class="tooltip" role="tooltip" style="top: 140px"
 						data-popper-placement="right">
 						Library
 						<div class="arrow" data-popper-arrow></div>
 					</div> </a> <a href="../borrow-list" class="nav-items"><i
 					class="bi bi-inboxes"></i>
 					<p>Borrow List</p>
-					<div class="tooltip" role="tooltip" style="top: 255px"
+					<div class="tooltip" role="tooltip" style="top: 195px"
 						data-popper-placement="right">
 						Borrow List
 						<div class="arrow" data-popper-arrow></div>
 					</div> </a> <a href="../create-book" class="nav-items"><i
 					class="bi bi-file-plus"></i>
 					<p>Create Book</p>
-					<div class="tooltip" role="tooltip" style="top: 315px"
+					<div class="tooltip" role="tooltip" style="top: 255px"
 						data-popper-placement="right">
 						Create Book
 						<div class="arrow" data-popper-arrow></div>
-					</div> </a> <a href="../user-list" class="nav-items"><i
-					class="bi bi-person"></i>
+					</div> </a> <a href="../user-list" class="nav-items "><i
+					class="bi bi-person-fill"></i>
 					<p>User List</p>
-					<div class="tooltip" role="tooltip" style="top: 370px"
+					<div class="tooltip" role="tooltip" style="top: 310px"
 						data-popper-placement="right">
 						User List
 						<div class="arrow" data-popper-arrow></div>
-					</div> </a> <a href="./bookrequest_list.html" class="nav-items"><i
+					</div> </a> <a href="../book-request" class="nav-items "><i
 					class="bi bi-hdd-stack"></i>
 					<p>Book Request List</p>
-					<div class="tooltip" role="tooltip" style="top: 430px"
+					<div class="tooltip" role="tooltip" style="top: 370px;"
 						data-popper-placement="right">
 						Book Request List
 						<div class="arrow" data-popper-arrow></div>
@@ -124,8 +115,7 @@
 				</div>
 				<div class="button-grp">
 					<button class="book-edit submit" type="button">Edit Book</button>
-					<button class="book-delete submit" type="button"
-						onclick="location.href = '../delete-book?bookId=${ book.bookId}';">Delete
+					<button class="book-delete submit" type="button">Delete
 						Book</button>
 					<button class="book-save submit" type="submit"
 						style="display: none">Save Changes</button>
@@ -254,6 +244,11 @@
 	  
 	  cancelBtn.addEventListener("click", function () {
 	    location.reload();
+	  });
+	  deleteBtn.addEventListener("click", function () {
+	      if (window.confirm("Are you sure you want to delete this book?")) {
+		        window.location.href = "../delete-book?bookId="+ ${book.bookId};
+		  }
 	  });
 	  </script>
 </body>

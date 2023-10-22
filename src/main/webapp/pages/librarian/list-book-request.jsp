@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
@@ -8,7 +8,7 @@
 <meta charset="UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>User List</title>
+<title>Book Request List</title>
 <link rel="icon" href="../assets/images/book-half.svg"
 	type="image/x-icon" />
 <link rel="stylesheet" href="../assets/css/main_page.css" />
@@ -54,14 +54,14 @@
 						data-popper-placement="right">
 						Create Book
 						<div class="arrow" data-popper-arrow></div>
-					</div> </a> <a href="#" class="nav-items active"><i
+					</div> </a> <a href="./user-list" class="nav-items "><i
 					class="bi bi-person-fill"></i>
 					<p>User List</p>
 					<div class="tooltip" role="tooltip" style="top: 310px"
 						data-popper-placement="right">
 						User List
 						<div class="arrow" data-popper-arrow></div>
-					</div> </a> <a href="./book-request" class="nav-items "><i
+					</div> </a> <a href="#" class="nav-items active"><i
 					class="bi bi-hdd-stack"></i>
 					<p>Book Request List</p>
 					<div class="tooltip" role="tooltip" style="top: 370px;"
@@ -95,39 +95,26 @@
 	<section class="main-container">
 		<jsp:include page="header.jsp"></jsp:include>
 		<main class="user-list-container">
-			<h3>User List</h3>
+			<h3>Book Request List</h3>
 			<div class="user-list-table-wrapper">
-				<table id="userTable" class="display">
+				<table id="bookRequestTable" class="display">
 					<thead>
 						<tr>
 							<th>S.No</th>
-							<th>Profile</th>
-							<th>Name</th>
-							<th>Role</th>
-							<th>Status</th>
-							<th>Email</th>
-							<th>Phone Number</th>
-							<th>Date of Birth</th>
-							<th>Gender</th>
+							<th>Book Name</th>
+							<th>Author Name</th>
+							<th>Description</th>
+							<th>Source</th>
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="user" items="${userList}" varStatus="loop">
+						<c:forEach var="request" items="${requestList}" varStatus="loop">
 							<tr>
 								<td>${loop.index + 1}</td>
-								<td><img src="${user.profileImage}" alt="Profile Image"
-									width="50px" height="50px" style="border-radius: 50%"></td>
-								<td>${user.name}</td>
-								<td><span
-									class="${user.admin ? 'status' : 'status completed'}">
-										${user.admin ? 'Librarian' : 'User'} </span></td>
-								<td><span
-									class="${user.active ? 'status completed' : 'status rejected'}">
-										${user.active ? 'Active' : 'Inactive'} </span></td>
-								<td>${user.email}</td>
-								<td>${user.mobileNo}</td>
-								<td>${user.dob}</td>
-								<td>${user.gender}</td>
+								<td>${request.bookName}</td>
+								<td>${request.authorName}</td>
+								<td>${request.description}</td>
+								<td>${request.sourceLink ? request.sourceLink : 'N/A'}</td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -144,7 +131,7 @@
 		src="https://cdn.datatables.net/v/dt/dt-1.13.6/datatables.min.js"></script>
 	<script>
 	$(document).ready(function() {
-	    $('#userTable').DataTable();
+	    $('#bookRequestTable').DataTable();
 	});
     </script>
 

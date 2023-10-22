@@ -55,8 +55,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Check for successMessage and errorMessage attributes set by the servlet
     const successMessage = document.body.getAttribute('successMessage');
     const errorMessage = document.body.getAttribute('errorMessage');
-	console.log(errorMessage);
-	console.log(successMessage);
+
     if (successMessage) {
         // Show success message
         showToastrMessage(successMessage, 'success');
