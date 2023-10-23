@@ -3,7 +3,6 @@ package com.fssa.librarymanagement_app.servlet.librarian;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,7 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.fssa.librarymanagement.exceptions.ServiceException;
-import com.fssa.librarymanagement.service.BookService;
+import com.fssa.librarymanagement.model.BookRequest;
+import com.fssa.librarymanagement.service.BookRequestService;
 
 /**
  * Servlet implementation class BookRequestListServlet
@@ -24,10 +24,10 @@ public class BookRequestListServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		BookService bookService = new BookService();
-		List<Map<String, String>> requestList = new ArrayList<>();
+		BookRequestService bookRequestService = new BookRequestService();
+		List<BookRequest> requestList = new ArrayList<>();
 		try {
-			requestList = bookService.getAllBookRequests();
+			requestList = bookRequestService.getAllBookRequests();
 
 			System.out.println(requestList);
 			request.setAttribute("requestList", requestList);

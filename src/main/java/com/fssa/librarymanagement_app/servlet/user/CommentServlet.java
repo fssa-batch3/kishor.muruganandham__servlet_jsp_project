@@ -2,7 +2,6 @@ package com.fssa.librarymanagement_app.servlet.user;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.time.LocalDateTime;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -92,7 +91,6 @@ public class CommentServlet extends HttpServlet {
 		String updatedDescription = jsonObject.getString("description");
 
 		Comment comment = new Comment();
-		comment.setEditedAt(LocalDateTime.now());
 		comment.setDescription(updatedDescription);
 		comment.setCommentId(commentId);
 

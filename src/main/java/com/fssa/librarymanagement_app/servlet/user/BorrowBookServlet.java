@@ -15,7 +15,7 @@ import com.fssa.librarymanagement.model.Book;
 import com.fssa.librarymanagement.model.Borrow;
 import com.fssa.librarymanagement.model.User;
 import com.fssa.librarymanagement.service.BorrowService;
-import com.fssa.librarymanagement.utils.BorrowingDurationEnumMapper;
+import com.fssa.librarymanagement.service.BorrowingDurationEnumMapper;
 
 /**
  * Servlet implementation class BorrowBookServlet

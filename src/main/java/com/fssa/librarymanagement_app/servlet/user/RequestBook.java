@@ -1,8 +1,6 @@
 package com.fssa.librarymanagement_app.servlet.user;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,7 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.fssa.librarymanagement.exceptions.ServiceException;
-import com.fssa.librarymanagement.service.BookService;
+import com.fssa.librarymanagement.model.BookRequest;
+import com.fssa.librarymanagement.service.BookRequestService;
 
 /**
  * Servlet implementation class RequestBook
@@ -33,16 +32,16 @@ public class RequestBook extends HttpServlet {
 		String authorName = request.getParameter("author-name");
 		String sourceLink = request.getParameter("source-link");
 		String description = request.getParameter("description");
-		BookService bookService = new BookService();
-		Map<String, String> bookRequest = new HashMap<>();
+		BookRequestService bookRequestService = new BookRequestService();
+		BookRequest bookRequest = new BookRequest();
 
 		// Add the parameters to the map
-		bookRequest.put("book_name", bookName);
-		bookRequest.put("author_name", authorName);
-		bookRequest.put("source_link", sourceLink);
-		bookRequest.put("reason", description);
+		bookRequest.setBookName(bookName);
+		bookRequest.setAuthorName(authorName);
+		bookRequest.setSourceLink(sourceLink);
+		bookRequest.setDescription(description);
 		try {
-			bookService.createBookRequest(bookRequest);
+			bookRequestService.createBookRequest(bookRequest);
 			request.setAttribute("successMessage", "Book request sent successfully!");
 			doGet(request, response);
 		} catch (ServiceException e) {
