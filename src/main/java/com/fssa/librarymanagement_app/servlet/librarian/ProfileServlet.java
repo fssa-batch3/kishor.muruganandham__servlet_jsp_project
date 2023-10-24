@@ -34,7 +34,6 @@ public class ProfileServlet extends HttpServlet {
 		try {
 			user = userService.getUserById(userId);
 
-			System.out.println(user);
 			request.setAttribute("user", user);
 			if (request.getAttribute("profileImage") != null) {
 				request.setAttribute("profileImage", request.getAttribute("profileImage"));
@@ -72,7 +71,7 @@ public class ProfileServlet extends HttpServlet {
 		user.setEmail(email);
 
 		UserService userService = new UserService();
-		System.out.println(user);
+
 		try {
 			userService.editUser(user);
 			session.setAttribute("user", user.getEmail());

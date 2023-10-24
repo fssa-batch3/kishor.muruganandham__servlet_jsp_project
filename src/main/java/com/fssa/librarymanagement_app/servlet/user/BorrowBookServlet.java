@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.fssa.librarymanagement.exceptions.ServiceException;
+import com.fssa.librarymanagement.exceptions.ValidationException;
 import com.fssa.librarymanagement.model.Book;
 import com.fssa.librarymanagement.model.Borrow;
 import com.fssa.librarymanagement.model.User;
@@ -42,11 +43,11 @@ public class BorrowBookServlet extends HttpServlet {
 		borrow.setBook(book);
 		borrow.setUser(user);
 		borrow.setBorrowDate(LocalDateTime.now());
-		borrow.setDueDate(BorrowingDurationEnumMapper.mapToBorrowingDuration(days));
 		try {
+			borrow.setDueDate(BorrowingDurationEnumMapper.mapToBorrowingDuration(days));
 			borrowService.borrowBook(borrow);
 
-		} catch (ServiceException e) {
+		} catch (ServiceException | ValidationException e) {
 			e.printStackTrace();
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			response.getWriter().write(e.getMessage());

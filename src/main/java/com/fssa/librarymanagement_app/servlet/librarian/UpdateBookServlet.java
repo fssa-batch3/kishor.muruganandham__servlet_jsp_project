@@ -28,7 +28,7 @@ public class UpdateBookServlet extends HttpServlet {
 		Book bookDetails;
 		try {
 			bookDetails = bookService.getBookById(bookId);
-			System.out.println(bookDetails);
+
 			request.setAttribute("book", bookDetails);
 			request.getRequestDispatcher("/pages/librarian/update-book.jsp").forward(request, response);
 		} catch (ServiceException e) {

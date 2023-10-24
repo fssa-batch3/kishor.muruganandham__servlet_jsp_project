@@ -35,7 +35,7 @@ public class UserBorrowsServlet extends HttpServlet {
 			try {
 				borrowList = borrowService.getBorrowsByUser(userId);
 				request.setAttribute("borrowList", borrowList);
-				System.out.print(borrowList);
+
 				request.getRequestDispatcher("/pages/librarian/user-borrows.jsp").forward(request, response);
 			} catch (ServiceException e) {
 				e.printStackTrace();

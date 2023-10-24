@@ -29,7 +29,7 @@ public class BorrowListServlet extends HttpServlet {
 		try {
 			borrowList = borrowService.getAllBorrows();
 			request.setAttribute("borrowList", borrowList);
-			System.out.print(borrowList);
+
 			request.getRequestDispatcher("/pages/librarian/list-borrow.jsp").forward(request, response);
 		} catch (ServiceException e) {
 			e.printStackTrace();

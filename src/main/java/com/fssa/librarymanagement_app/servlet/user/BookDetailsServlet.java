@@ -58,15 +58,10 @@ public class BookDetailsServlet extends HttpServlet {
 				List<Comment> comments = commentService.listCommentsByBook(bookId);
 
 				request.setAttribute("commentList", comments);
-				System.out.println(comments);
 
 				if (existingBorrow != null) {
 					request.setAttribute("borrowed", true);
 				}
-
-				System.out.println(bookDetails);
-				System.out.println(ratingDetails);
-				System.out.println(rating);
 
 				request.setAttribute("book", bookDetails);
 				request.setAttribute("ratingDetails", ratingDetails);

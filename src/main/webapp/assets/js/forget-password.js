@@ -54,12 +54,10 @@ forgetForm.addEventListener("submit", function(event) {
           window.location.assign(window.location.origin);
         })
         .catch(function(err) {
-          console.log(err);
           alert("Error updating password. Please try again. Error: " + err);
         });
     })
     .catch(function(err) {
-      console.error(err);
       alert("Error fetching user data. Please try again later.");
     });
 });

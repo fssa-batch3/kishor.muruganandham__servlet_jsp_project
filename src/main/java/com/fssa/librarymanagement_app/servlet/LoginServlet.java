@@ -47,7 +47,6 @@ public class LoginServlet extends HttpServlet {
 			if (authenticatedUser.isAdmin()) {
 				response.sendRedirect(request.getContextPath() + "/librarian/user-list");
 			} else {
-				System.out.println(authenticatedUser);
 				response.sendRedirect(request.getContextPath() + "/user/book-list");
 			}
 		} catch (ServiceException | IOException e) {

@@ -29,7 +29,6 @@ public class BookRequestListServlet extends HttpServlet {
 		try {
 			requestList = bookRequestService.getAllBookRequests();
 
-			System.out.println(requestList);
 			request.setAttribute("requestList", requestList);
 			request.getRequestDispatcher("/pages/librarian/list-book-request.jsp").forward(request, response);
 		} catch (ServiceException e) {

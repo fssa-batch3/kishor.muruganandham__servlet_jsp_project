@@ -34,7 +34,7 @@ public class BookDetailsServlet extends HttpServlet {
 			Book bookDetails;
 			try {
 				bookDetails = bookService.getBookById(bookId);
-				System.out.println(bookDetails);
+
 				request.setAttribute("book", bookDetails);
 				request.getRequestDispatcher("book-details.jsp").forward(request, response);
 			} catch (ServiceException e) {

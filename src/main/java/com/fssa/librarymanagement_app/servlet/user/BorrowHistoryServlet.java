@@ -33,7 +33,6 @@ public class BorrowHistoryServlet extends HttpServlet {
 		try {
 			borrowList = borrowService.getBorrowsByUser(userId);
 
-			System.out.println(borrowList);
 			request.setAttribute("borrowList", borrowList);
 			request.getRequestDispatcher("/pages/user/borrow-history.jsp").forward(request, response);
 		} catch (ServiceException e) {

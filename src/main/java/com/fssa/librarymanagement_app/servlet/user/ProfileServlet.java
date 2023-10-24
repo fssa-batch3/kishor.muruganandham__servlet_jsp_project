@@ -36,7 +36,6 @@ public class ProfileServlet extends HttpServlet {
 		try {
 			user = userService.getUserById(userId);
 
-			System.out.println(user);
 			request.setAttribute("user", user);
 			if (request.getAttribute(PROFILE_IMAGE) != null) {
 				request.setAttribute(PROFILE_IMAGE, request.getAttribute(PROFILE_IMAGE));
@@ -62,8 +61,7 @@ public class ProfileServlet extends HttpServlet {
 		String email = (String) session.getAttribute("user");
 
 		String name = request.getParameter("name");
-		System.out.println(request.getParameter("name"));
-		System.out.println(request.getParameter("ud-gender"));
+
 		char gender = request.getParameter("ud-gender").charAt(0);
 		LocalDate dob = LocalDate.parse(request.getParameter("ud-dob"));
 		long mobileNo = Long.parseLong(request.getParameter("ud-phone-number"));
@@ -79,7 +77,7 @@ public class ProfileServlet extends HttpServlet {
 		user.setEmail(email);
 
 		UserService userService = new UserService();
-		System.out.println(user);
+
 		try {
 			userService.editUser(user);
 			session.setAttribute("user", user.getEmail());

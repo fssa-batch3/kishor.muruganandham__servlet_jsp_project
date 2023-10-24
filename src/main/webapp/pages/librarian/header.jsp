@@ -127,7 +127,7 @@ function displayUserData() {
 		nameDisplay.textContent = `Hello <%=userName%>`;
 		profileDisplay.style.background = `url(<%=profileImage%>) center center/cover no-repeat`;
 	} catch (error) {
-		console.error(`Error in displayUserData function: ${error}`);
+		alert(`Error in displayUserData function: ${error}`);
 	}
 }
 window.addEventListener("load", displayUserData);

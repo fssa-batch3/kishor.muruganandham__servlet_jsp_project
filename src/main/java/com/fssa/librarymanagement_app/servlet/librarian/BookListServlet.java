@@ -27,8 +27,7 @@ public class BookListServlet extends HttpServlet {
 		try {
 			bookList = bookService.listAllBooks();
 			genreList = bookService.listAllGenres();
-			System.out.println(bookList);
-			System.out.println(genreList);
+
 			request.setAttribute("bookList", bookList);
 			request.setAttribute("genreList", genreList);
 			request.getRequestDispatcher("/pages/librarian/list-book.jsp").forward(request, response);

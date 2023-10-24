@@ -347,14 +347,13 @@
 		    axios.post('upload-image', formData)
 		        .then(response => {
 		            const imageUrl = response.data;  
-		            console.log('Image URL:', imageUrl);
 		            bookImg.src = imageUrl;
 		            bookImgValue.value = imageUrl;
 		            alert("Book image uploaded successfully");
 		            closeImageModal();
 		        })
 		        .catch(error => {
-		            console.error('Error sending image data:', error);
+		            alert('Error sending image data:', error);
 		        });
 		});
 	  </script>
