@@ -272,6 +272,12 @@
 	    location.reload();
 	});
 
+	deleteBtn.addEventListener("click", function () {
+	      if (window.confirm("Are you sure you want to delete this account?")) {
+		        window.location.href = "../delete";
+		  }
+	  });
+
 	modalCloseBtn.addEventListener("click", closeBorrowModal);
 
 	applyImageBtn.addEventListener('click', function () {

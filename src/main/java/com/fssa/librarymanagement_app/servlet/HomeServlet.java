@@ -21,7 +21,7 @@ public class HomeServlet extends HttpServlet {
 
 		if (session.getAttribute("user") != null) {
 			if ((boolean) session.getAttribute("isAdmin")) {
-				response.sendRedirect(request.getContextPath() + "/librarian/dashboard");
+				response.sendRedirect(request.getContextPath() + "/librarian/user-list");
 				return;
 			}
 			response.sendRedirect(request.getContextPath() + "/user/dashboard");

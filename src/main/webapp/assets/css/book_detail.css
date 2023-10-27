@@ -21,7 +21,7 @@
   flex-direction: column;
   justify-content: center;
   position: sticky;
-  top: 50px;
+  top: 10px;
 }
 
 .book-detail-image img {

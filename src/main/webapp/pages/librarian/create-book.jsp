@@ -254,7 +254,7 @@
 				<div class="input-group" style="width: 100%">
 					<label for="image-url">Image URL:</label>
 					<div class="input-field">
-						<input type="text" name="image-url" id="imageLink" value="" />
+						<input type="text" name="image-url" id="imageLink" placeholder="Enter Image URL" />
 					</div>
 				</div>
 				<div class="input-group" style="width: 100%">
@@ -272,7 +272,7 @@
 		</div>
 
 	</div>
-
+	<div id="loader-container"></div>
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 	<script type="text/javascript">
 
@@ -333,6 +333,7 @@
 		saveForm.addEventListener('submit', function(event) {
 		    event.preventDefault(); 
 
+		    setLoader(true);
 		    const imageLink = document.getElementById('imageLink').value;  
 		    const imageFile = document.getElementById('imageUpload').files[0];
 
@@ -344,11 +345,12 @@
 		        formData.append('image-file', imageFile);
 		    }
 
-		    axios.post('upload-image', formData)
+		    axios.post('../upload-image', formData)
 		        .then(response => {
 		            const imageUrl = response.data;  
 		            bookImg.src = imageUrl;
 		            bookImgValue.value = imageUrl;
+		            setLoader(false);
 		            alert("Book image uploaded successfully");
 		            closeImageModal();
 		        })

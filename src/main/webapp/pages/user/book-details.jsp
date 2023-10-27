@@ -309,7 +309,8 @@
 	        })
 	        .catch(error => {
 	            setLoader(false);
-	            showToastrMessage('Error: ' + error.response.data.message,'error');
+	            console.log(error);
+	            showToastrMessage('Error: ' + error.response.data,'error');
 	        });
 	});
 

@@ -249,21 +249,11 @@
 	  location.reload();
 	});
 
-	deleteBtn.addEventListener("click", (e) => {
-	  e.preventDefault();
-	  const confirmValue = confirm("Are you sure you want to delete your account?");
-	  if (confirmValue === false) {
-	    return;
-	  }
-	  const promptValue = prompt(
-	    `This action cannot be undone. This will permanently delete the ${thisUser.username} account and remove all details associated with it. Please type your password to confirm.`
-	  );
-	  const isPasswordValid = comparePassword(promptValue, thisUser.password);
-	  if (!isPasswordValid) {
-	    alert("Please enter your password correctly");
-	    return;
-	  }
-	});
+	deleteBtn.addEventListener("click", function () {
+	      if (window.confirm("Are you sure you want to delete this account?")) {
+		        window.location.href = "../delete";
+		  }
+	  });
 
 	const modalCloseBtn = document.querySelector(".modal-close");
 	modalCloseBtn.addEventListener("click", closeBorrowModal);

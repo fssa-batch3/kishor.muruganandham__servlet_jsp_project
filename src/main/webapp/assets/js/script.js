@@ -36,7 +36,7 @@ function showToastrMessage(message, messageType) {
 	            "positionClass": "toast-top-center",
 	            "showDuration": "300",
 	            "hideDuration": "1000",
-	            "timeOut": "8000",
+	            "timeOut": "4000",
 	        };
 
 	        if (messageType === "success") {
